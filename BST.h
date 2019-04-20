@@ -50,11 +50,10 @@ class BST
 {
 public:
     BST();
-    BST(int size);
     virtual ~BST();
-    void insert(T value);
-    bool contains(T value);
-    bool deleteNode(T value);
+    void insert(int key, T value);
+    bool contains(T key);
+    bool deleteNode(T key);
     TreeNode<T>* getSuccessor(TreeNode<T>* d);
     bool deleteR(int k);
 
@@ -63,29 +62,15 @@ public:
     bool isEmpty();
     void printTree();
     void recPrint(TreeNode<T>* node);
-    bool isFull();
-    void increaseSize(int increase);
 
 private:
     TreeNode<T>* root;
-    int maxSize;
-    int currentSize;
 };
 
 template<class T>
 BST<T>::BST() // default constructor
 {
     root = NULL;
-    maxSize = 1000;
-    currentSize = 0;
-}
-
-template<class T>
-BST<T>::BST(int size) // default constructor
-{
-    root = NULL;
-    maxSize = size;
-    currentSize = 0;
 }
 
 template<class T>
@@ -121,18 +106,9 @@ bool BST<T>::isEmpty()
 // max
 
 template<class T>
-void BST<T>::insert(T value)
+void BST<T>::insert(int key, T value)
 {
-    if(isFull())
-        throw invalid_argument("Your tree is full");
-
-    int tempKey;
-    do
-    {
-        tempKey = rand()%maxSize;
-    } while(contains(tempKey));
-
-    TreeNode<T>* node = new TreeNode<T>(tempKey, value);
+    TreeNode<T>* node = new TreeNode<T>(key, value);
 
     if(isEmpty()) root = node;
     else
@@ -164,7 +140,6 @@ void BST<T>::insert(T value)
             }
         }
     }
-    currentSize++;
 }
 
 template<class T>
@@ -185,15 +160,6 @@ bool BST<T>::contains(T key)
     }
     return true;
 }
-
-/*
-Delete
-- Conditions
-  - 0 Children
-  - 1 Child
-  - 2 Children
-    - Find the smallest Node greater than the deleted node in order to keep the rules of the BST intact
-*/
 
 template<class T>
 bool BST<T>::deleteR(int k)
@@ -223,7 +189,8 @@ bool BST<T>::deleteR(int k)
         // {
         //     isLeft = false;
         //     current = current->right;
-        // } */
+        // }
+        */
     }
 
     // at this point we've found our node to be deleted
@@ -267,8 +234,6 @@ bool BST<T>::deleteR(int k)
 
     // Delete current and null out the nodes
 
-    currentSize--;
-
     return true;
 }
 
@@ -293,16 +258,4 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T>* d)
         sp->left = successor->right;
         successor->right = d->right;
     }
-}
-
-template<class T>
-bool BST<T>::isFull()
-{
-    return(maxSize==(currentSize+1));
-}
-
-template<class T>
-void BST<T>::increaseSize(int increase)
-{
-    maxSize += increase;
 }
