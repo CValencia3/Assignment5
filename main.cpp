@@ -8,12 +8,16 @@
 int main(int argc, char const *argv[])
 {
 
-    BST<int> myTree;
+    // BST<int> myTree;
+    //
+    // myTree.insert(100, 100);
+    // myTree.deleteR(100);
+    //
+    // StudDel myStud(10, "Matt", "Here", "Junior", 100);
 
-    myTree.insert(100, 100);
-    myTree.deleteR(100);
-
-    StudDel myStud(10, "Matt", "Here", "Junior", 100);
+    <Manips> myStudents;
+    StudDel myStud;
+    myStudents.insertBack(myStud);
 
     return 0;
 }
