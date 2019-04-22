@@ -17,6 +17,11 @@ public:
 private:
 };
 
+StudDel::StudDel()
+{
+
+}
+
 StudDel::StudDel(int id, string n, string dp, string lvl, int ad)
 {
     ID = id;
