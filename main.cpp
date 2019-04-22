@@ -5,6 +5,8 @@
 #include "genDLL.h"
 #include "StudDel.h"
 #include "GenStack.h"
+#include "Student.h"
+#include "Faculty.h"
 
 int main(int argc, char const *argv[])
 {
@@ -15,6 +17,11 @@ int main(int argc, char const *argv[])
     // myTree.deleteR(100);
     //
     StudDel myStud(10, "Matt", "Here", "Junior", 100);
+
+    Student s(10,"Matt","Freshman","Music",11,4.0);
+    Faculty f(12,"Mandrew","associate","math");
+    f.AddAvisee(10);
+    f.Print();
 
     GenStack<Manips> myStudents(5);
     // StudDel myStud;
