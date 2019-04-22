@@ -1,3 +1,4 @@
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -102,5 +103,3 @@ template <class T>
 bool GenStack<T>::isEmpty(){
     return (top == -1);
 }
-
-#endif
