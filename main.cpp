@@ -2,8 +2,8 @@
 #include <iostream>
 
 #include "BST.h"
-#include "genQ.h"
 #include "genDLL.h"
+#include "StudDel.h"
 
 int main(int argc, char const *argv[])
 {
@@ -12,6 +12,8 @@ int main(int argc, char const *argv[])
 
     myTree.insert(100, 100);
     myTree.deleteR(100);
+
+    StudDel myStud(10, "Matt", "Here", "Junior", 100);
 
     return 0;
 }
