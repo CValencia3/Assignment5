@@ -14,9 +14,9 @@ Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
 Student::~Student()
 {}
 
-void Student::Print()
+void Student::print()
 {
-    Person::Print();
+    Person::print();
     cout << "Major: " << major << endl;
     cout << "Advisor: " << advisorID << endl;
     cout << "GPA: " << GPA << endl;

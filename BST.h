@@ -52,8 +52,7 @@ public:
     BST();
     virtual ~BST();
     void insert(int key, T value);
-    bool contains(T key);
-    bool deleteNode(T key);
+    bool contains(int key);
     TreeNode<T>* getSuccessor(TreeNode<T>* d);
     bool deleteR(int k);
 
@@ -92,7 +91,7 @@ void BST<T>::recPrint(TreeNode<T>* node)
     if(node == NULL) return;
 
     recPrint(node->left);
-    cout << node->value << endl;
+    node->value.print();
     recPrint(node->right);
 }
 
@@ -120,7 +119,7 @@ void BST<T>::insert(int key, T value)
         {
             parent = current;
 
-            if(value < current->key)
+            if(key < current->key)
             {
                 current = current->left;
                 if(current==NULL)
@@ -143,7 +142,7 @@ void BST<T>::insert(int key, T value)
 }
 
 template<class T>
-bool BST<T>::contains(T key)
+bool BST<T>::contains(int key)
 {
     if(isEmpty()) return false;
 
@@ -179,18 +178,6 @@ bool BST<T>::deleteR(int k)
 
         isLeft = (k < current->key);
         current = isLeft?current->left:current->right;
-        /*
-        // if(k < current->key)
-        // {
-        //     isLeft = true;
-        //     current = current->left;
-        // }
-        // else
-        // {
-        //     isLeft = false;
-        //     current = current->right;
-        // }
-        */
     }
 
     // at this point we've found our node to be deleted
@@ -198,7 +185,11 @@ bool BST<T>::deleteR(int k)
     // Leaf Node
     if((current->left == NULL) && (current->right == NULL))
     {
-        if(current == root) root == NULL;
+        if(current == root)
+        {
+            root == NULL;
+            cout << root->key << endl; // for some reason the root isn't being deleted
+        }
         else if(isLeft) parent->left = NULL;
         else parent->right = NULL;
     }
@@ -232,7 +223,7 @@ bool BST<T>::deleteR(int k)
         successor->left = current->left;
     }
 
-    // Delete current and null out the nodes
+    delete current;
 
     return true;
 }

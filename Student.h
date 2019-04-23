@@ -14,6 +14,6 @@ public:
     int advisorID;
     double GPA;
 
-    void Print();
+    void print();
 
 };

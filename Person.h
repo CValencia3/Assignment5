@@ -14,5 +14,12 @@ public:
     string name;
     string level;
 
-    void Print();
+    void print();
+
+    bool operator==(const Person& otherNum);
+    bool operator<=(const Person& otherNum);
+    bool operator>=(const Person& otherNum);
+    bool operator!=(const Person& otherNum);
+    bool operator>(const Person& otherNum);
+    bool operator<(const Person& otherNum);
 };

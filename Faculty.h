@@ -15,6 +15,6 @@ public:
     DoublyLinkedList<int> advisees;
 
     void AddAvisee(int id);
-    void Print();
+    void print();
 
 };

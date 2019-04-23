@@ -19,9 +19,9 @@ void Faculty::AddAvisee(int id)
     advisees.insertFront(id);
 }
 
-void Faculty::Print()
+void Faculty::print()
 {
-    Person::Print();
+    Person::print();
     cout << "Department: " << department << endl;
     cout << "Advisees: " << endl;
     advisees.printList();
