@@ -187,8 +187,7 @@ bool BST<T>::deleteR(int k)
     {
         if(current == root)
         {
-            root == NULL;
-            cout << root->key << endl; // for some reason the root isn't being deleted
+            root = NULL;
         }
         else if(isLeft) parent->left = NULL;
         else parent->right = NULL;
@@ -223,7 +222,7 @@ bool BST<T>::deleteR(int k)
         successor->left = current->left;
     }
 
-    delete current;
+    // delete current;
 
     return true;
 }
