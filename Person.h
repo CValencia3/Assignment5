@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <string>
+
 
 using namespace std;
 
@@ -9,6 +11,7 @@ public:
     Person();
     Person(int id, string name, string level);
     ~Person();
+    void save(ofstream &myStream);
 
     int id;
     string name;

@@ -1,4 +1,6 @@
 #include "Student.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -12,6 +14,7 @@ Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
       advisorID(adv),
       GPA(gpa){}
 Student::~Student()
+
 {}
 
 void Student::print()
@@ -21,3 +24,11 @@ void Student::print()
     cout << "Advisor: " << advisorID << endl;
     cout << "GPA: " << GPA << endl;
 }
+
+// void Student::save(ofstream &myStream)
+// {
+//     Person::save(myStream);
+//     myStream << "/t" << major << "/n"
+//              << "/t" << advisorID << "/n"
+//              << "/t" << GPA << "/n";
+// }

@@ -1,4 +1,7 @@
 #include "Person.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -23,6 +26,16 @@ void Person::print()
     cout << "ID: " << id << endl;
     cout << "Name: " << name << endl;
     cout << "Level: " << level << endl;
+}
+
+void Person::save(ofstream &myStream)
+{
+    ofstream tempStream;
+    tempStream.open("temp.txt");
+    tempStream << "Hello\n";
+    tempStream.close();
+    myStream << '/t' << name << "/n"
+    //          << "/n" << level << "/n";
 }
 
 bool Person::operator==(const Person& otherPerson)
