@@ -1,6 +1,7 @@
 #include "Faculty.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -29,13 +30,13 @@ void Faculty::print()
     advisees.printList();
 }
 
-// void Faculty::save(ofstream &myStream)
-// {
-//     Person::save(myStream);
-//     myStream << "/t" << department << "/n";
-//
-//     for (int i = 0; i < advisees.getSize(); ++i)
-//     {
-//         myStream << "/t" << 'k' << "/n";
-//     }
-// }
+void Faculty::save(ofstream &myStream)
+{
+    Person::save(myStream);
+    myStream << '\t' << department << '\n';
+
+    for (int i = 0; i < advisees.getSize(); ++i)
+    {
+        myStream << '\t' << 'k' << '\n';
+    }
+}

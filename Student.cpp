@@ -1,6 +1,6 @@
 #include "Student.h"
 #include <iostream>
-#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -25,10 +25,10 @@ void Student::print()
     cout << "GPA: " << GPA << endl;
 }
 
-// void Student::save(ofstream &myStream)
-// {
-//     Person::save(myStream);
-//     myStream << "/t" << major << "/n"
-//              << "/t" << advisorID << "/n"
-//              << "/t" << GPA << "/n";
-// }
+void Student::save(ofstream &myStream)
+{
+    Person::save(myStream);
+    myStream << '\t' << major << '\n'
+             << '\t' << advisorID << '\n'
+             << '\t' << GPA << '\n';
+}

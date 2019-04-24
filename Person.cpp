@@ -30,12 +30,9 @@ void Person::print()
 
 void Person::save(ofstream &myStream)
 {
-    ofstream tempStream;
-    tempStream.open("temp.txt");
-    tempStream << "Hello\n";
-    tempStream.close();
-    myStream << '/t' << name << "/n"
-    //          << "/n" << level << "/n";
+    myStream << id << "\n"
+             << '\t' << name << "\n"
+             << '\t' << level << "\n";
 }
 
 bool Person::operator==(const Person& otherPerson)

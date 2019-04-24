@@ -3,6 +3,7 @@
 #include "genDLL.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ public:
     Faculty();
     Faculty(int id, string name, string level, string department);
     ~Faculty();
-    // void save(ofstream &myStream);
+    void save(ofstream &myStream);
 
     string department;
     DoublyLinkedList<int> advisees;
