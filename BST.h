@@ -62,7 +62,6 @@ public:
     void printTree();
     void recPrint(TreeNode<T>* node);
 
-private:
     TreeNode<T>* root;
 };
 

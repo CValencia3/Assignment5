@@ -8,6 +8,7 @@ Student::Student()
 {
     Person();
 }
+
 Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
     : Person(id,nm,lvl),
       major{mjr},
