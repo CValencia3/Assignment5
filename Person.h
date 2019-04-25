@@ -17,7 +17,7 @@ public:
     string name;
     string level;
 
-    void print();
+    virtual void print();
 
     bool operator==(const Person& otherNum);
     bool operator<=(const Person& otherNum);

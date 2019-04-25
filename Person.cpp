@@ -35,6 +35,7 @@ void Person::save(ofstream &myStream)
     //          << '\t' << level << "\n";
 }
 
+//What did i say about overloading operators >:(
 bool Person::operator==(const Person& otherPerson)
 {
     return (this->id == otherPerson.id);
