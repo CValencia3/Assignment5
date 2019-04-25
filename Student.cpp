@@ -31,10 +31,7 @@ void Student::print()
 
 void Student::save(ofstream &myStream)
 {
-    // Person::save(myStream);
-    myStream << id << "\n"
-             << '\t' << name << "\n"
-             << '\t' << level << "\n";
+    Person::save(myStream);
     myStream << '\t' << major << '\n'
              << '\t' << advisorID << '\n'
              << '\t' << GPA << '\n';

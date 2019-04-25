@@ -37,15 +37,15 @@ int main(int argc, char const *argv[])
     myTree.printTree();
 
 
-    // // myPerson2.undoOperation();
-    //
-    // serializer myS;
-    // myS.serializeTree(myTree);
+    // myPerson2.undoOperation();
+
+    serializer myS;
+    myS.serializeTree(myTree);
     //
     // myTree.printTree();
     //
     // myPerson.undoOperation();
-    // // myPerson2.redoOperation();
+    // myPerson2.redoOperation();
     //
     // cout << "----------" << endl;
     // myTree.printTree();

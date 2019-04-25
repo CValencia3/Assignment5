@@ -10,8 +10,7 @@ public:
     Person();
     Person(int id, string name, string level);
     ~Person();
-    // void save(ofstream &myStream);
-    void save(ofstream &myStream);
+    virtual void save(ofstream &myStream);
 
     int id;
     string name;

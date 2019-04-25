@@ -15,6 +15,6 @@ private:
 public:
     serializer();
     ~serializer();
-    void serializeTree(BST<Person> &myTree);
-    void serializeNode(TreeNode<Person>* root, ofstream &myStream);
+    void serializeTree(BST<Person*> &myTree);
+    void serializeNode(TreeNode<Person*>* root, ofstream &myStream);
 };

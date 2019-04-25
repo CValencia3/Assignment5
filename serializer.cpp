@@ -17,7 +17,7 @@ serializer::~serializer()
 
 }
 
-void serializer::serializeTree(BST<Person> &myTree)
+void serializer::serializeTree(BST<Person*> &myTree)
 {
     ofstream tempStream;
     tempStream.open("temp.txt");
@@ -27,9 +27,9 @@ void serializer::serializeTree(BST<Person> &myTree)
     tempStream.close();
 }
 
-void serializer::serializeNode(TreeNode<Person>* root, ofstream &myStream)
+void serializer::serializeNode(TreeNode<Person*>* root, ofstream &myStream)
 {
     if(root->left!=NULL) serializeNode(root->left, myStream);
-    if(root!= NULL) root->value.save(myStream);
+    if(root!= NULL) root->value->save(myStream);
     if(root->right!=NULL) serializeNode(root->right, myStream);
 }
