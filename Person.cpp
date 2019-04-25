@@ -30,9 +30,9 @@ void Person::print()
 
 void Person::save(ofstream &myStream)
 {
-    myStream << id << "\n"
-             << '\t' << name << "\n"
-             << '\t' << level << "\n";
+    // myStream << id << "\n"
+    //          << '\t' << name << "\n"
+    //          << '\t' << level << "\n";
 }
 
 bool Person::operator==(const Person& otherPerson)

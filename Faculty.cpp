@@ -7,7 +7,7 @@ using namespace std;
 
 Faculty::Faculty()
 {
-    Person();
+    // Person();
 }
 Faculty::Faculty(int id, string nm, string lvl, string dept)
     : Person(id,nm,lvl),
@@ -32,7 +32,11 @@ void Faculty::print()
 
 void Faculty::save(ofstream &myStream)
 {
-    Person::save(myStream);
+    // Person::save(myStream);
+    myStream << id << "\n"
+             << '\t' << name << "\n"
+             << '\t' << level << "\n";
+
     myStream << '\t' << department << '\n';
 
     for (int i = 0; i < advisees.getSize(); ++i)

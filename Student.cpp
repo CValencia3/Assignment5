@@ -6,17 +6,20 @@ using namespace std;
 
 Student::Student()
 {
-    Person();
+    // Person();
 }
 
 Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
     : Person(id,nm,lvl),
       major{mjr},
       advisorID(adv),
-      GPA(gpa){}
-Student::~Student()
+      GPA(gpa)
+      {}
 
-{}
+Student::~Student()
+{
+
+}
 
 void Student::print()
 {
@@ -28,8 +31,12 @@ void Student::print()
 
 void Student::save(ofstream &myStream)
 {
-    Person::save(myStream);
+    // Person::save(myStream);
+    myStream << id << "\n"
+             << '\t' << name << "\n"
+             << '\t' << level << "\n";
     myStream << '\t' << major << '\n'
              << '\t' << advisorID << '\n'
              << '\t' << GPA << '\n';
+
 }
