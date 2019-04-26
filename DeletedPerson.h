@@ -10,13 +10,13 @@ class DeletedPerson: public Manips
 {
 public:
     DeletedPerson();
-    DeletedPerson(Person myP, BST<Person>* aT);
+    DeletedPerson(Person *myP, BST<Person*>* aT);
     void undoOperation(); // Delete
     void redoOperation();
 
 private:
-    Person affectedPerson;
-    BST<Person>* affectedTree;
+    Person *affectedPerson;
+    BST<Person*> *affectedTree;
 };
 
 DeletedPerson::DeletedPerson()
@@ -24,7 +24,7 @@ DeletedPerson::DeletedPerson()
 
 }
 
-DeletedPerson::DeletedPerson(Person myP, BST<Person>* aT)
+DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT)
     :affectedPerson(myP), affectedTree(aT)
 {
 
@@ -32,10 +32,10 @@ DeletedPerson::DeletedPerson(Person myP, BST<Person>* aT)
 
 void DeletedPerson::undoOperation() // Oposite of action done
 {
-    affectedTree->insert(affectedPerson.id, affectedPerson);
+    affectedTree->insert(affectedPerson->id, affectedPerson);
 }
 
 void DeletedPerson::redoOperation() // Action done
 {
-    affectedTree->deleteR(affectedPerson.id);
+    affectedTree->deleteR(affectedPerson->id);
 }
