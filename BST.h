@@ -60,6 +60,7 @@ public:
     TreeNode<T>* getMax();
     bool isEmpty();
     void printTree();
+    void searchPrint(int key);
     void recPrint(TreeNode<T>* node);
 
     TreeNode<T>* root;
@@ -159,6 +160,25 @@ bool BST<T>::contains(int key)
         if(current == NULL) return false;
     }
     return true;
+}
+
+template<class T>
+void BST<T>::searchPrint(int key)
+{
+    if(contains(key))
+    {
+        TreeNode<T>* current = root;
+        TreeNode<T>* parent = root;
+
+        while(current->key!=key)
+        {
+            parent = current;
+
+            current = (key < current->key) ? current->left : current->right;
+        }
+        current->value->print();
+    }
+    else cout << "ID not found" << endl;
 }
 
 template<class T>
