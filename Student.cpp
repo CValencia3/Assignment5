@@ -1,12 +1,13 @@
 #include "Student.h"
-#include <iostream>
-#include <fstream>
 
 using namespace std;
 
 Student::Student()
 {
-    // Person();
+    Person();
+    major = "Comsic Indifference";
+    advisorID = id + 1;
+    GPA = 6.66;
 }
 
 Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
@@ -27,6 +28,11 @@ void Student::print()
     cout << "Major: " << major << endl;
     cout << "Advisor: " << advisorID << endl;
     cout << "GPA: " << GPA << endl;
+}
+
+void Student::printAdvisor(BST<Person*>* fT)
+{
+    fT->searchPrint(advisorID);
 }
 
 void Student::save(ofstream &myStream)

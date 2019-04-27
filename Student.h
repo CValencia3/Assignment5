@@ -1,5 +1,6 @@
 #pragma once
 #include "Person.h"
+#include "BST.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -19,5 +20,6 @@ public:
     double GPA;
 
     void print();
+    void printAdvisor(BST<Person*>* facultyTree);
 
 };
