@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -15,6 +15,7 @@ public:
     int id;
     string name;
     string level;
+    static const string* names;
 
     virtual void print();
 
@@ -24,4 +25,5 @@ public:
     bool operator!=(const Person& otherNum);
     bool operator>(const Person& otherNum);
     bool operator<(const Person& otherNum);
+
 };
