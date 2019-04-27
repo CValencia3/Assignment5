@@ -24,7 +24,7 @@ InsertedPerson::InsertedPerson()
 
 }
 
-InsertedPerson::InsertedPerson(Person *myP, BST<Person*>* aT)
+InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT)
     :affectedPerson(myP), affectedTree(aT)
 {
 
