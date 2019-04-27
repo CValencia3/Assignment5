@@ -3,7 +3,7 @@
 1. Add backwards fuctionality to changing a student's advisor
 (the change should be reflected in the advisor's list)
 2. Assigning a random advisor in faculty delete
- 
+
 */
 #include <string>
 #include <iostream>
@@ -24,7 +24,6 @@ int main(int argc, char const *argv[])
     BST<Person*> studentDatabase;
     BST<Person*> facultyDatabase;
 
-<<<<<<< HEAD
     //Create some test students and faculty
     Student s(10,"Matt","Freshman","Music",11,4.0);
     Student q(100,"Joe","Freshman","Music",11,4.0);
@@ -90,28 +89,6 @@ int main(int argc, char const *argv[])
 
     GenStack<Manips> undo(5);
     GenStack<Manips> redo(5);
-=======
-    // Student s(10,"Matt","Freshman","Music",11,4.0);
-    // Student q(100,"Joe","Freshman","Music",11,4.0);
-    // Student l(101,"Helen","Freshman","Music",11,4.0);
-    //
-    // Faculty f(12,"Mandrew","associate","math");
-    // f.AddAvisee(10);
-    //
-    // InsertedPerson myPerson(&s, &myTree);
-    // InsertedPerson myPerson1(&q, &myTree);
-    // InsertedPerson myPerson2(&l, &myTree);
-    //
-    // myPerson.redoOperation();
-    // myPerson1.redoOperation();
-    // myPerson2.redoOperation();
-    //
-    // cout << "----------" << endl;
-    // myTree.printTree();
-    //
-    // serializer myS;
-    // myS.serializeTree(myTree);
->>>>>>> d2a8ab147a65d6937e68b2c2aa2ea54e33aae536
 
 
     return 0;
