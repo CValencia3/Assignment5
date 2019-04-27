@@ -1,8 +1,9 @@
 #pragma once
 #include "Person.h"
 #include "genDLL.h"
+#include "Student.h"
+#include "BST.h"
 #include <iostream>
-#include <string>
 #include <fstream>
 
 using namespace std;
@@ -18,7 +19,9 @@ public:
     string department;
     DoublyLinkedList<int> advisees;
 
-    void AddAvisee(int id);
+    void AddAdvisee(int id);
+    void AddAdvisee(Student *s);
     void print();
+    void printAdvisees(BST<Person*> *studentTree);
 
 };

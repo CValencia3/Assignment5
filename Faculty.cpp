@@ -1,13 +1,12 @@
 #include "Faculty.h"
-#include <iostream>
-#include <string>
-#include <fstream>
 
 using namespace std;
 
 Faculty::Faculty()
 {
-    // Person();
+    Person();
+    level = "Associate Inky Cloud of Shadows";
+    department = "Sentient Darkness";
 }
 Faculty::Faculty(int id, string nm, string lvl, string dept)
     : Person(id,nm,lvl),
@@ -17,9 +16,15 @@ Faculty::~Faculty()
 
 }
 
-void Faculty::AddAvisee(int id)
+void Faculty::AddAdvisee(int id)
 {
     advisees.insertFront(id);
+}
+
+void Faculty::AddAdvisee(Student *s)
+{
+    advisees.insertFront(s->id);
+    s->advisorID = id;
 }
 
 void Faculty::print()
@@ -28,6 +33,16 @@ void Faculty::print()
     cout << "Department: " << department << endl;
     cout << "Advisees: " << endl;
     advisees.printList();
+}
+
+void Faculty::printAdvisees(BST<Person*> *sT)
+{
+    ListNode<int> *current = advisees.getHead();
+    while (current!=NULL)
+    {
+        sT->searchPrint(current->data);
+        current = current->next;
+    }
 }
 
 void Faculty::save(ofstream &myStream)
