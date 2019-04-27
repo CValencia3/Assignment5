@@ -9,23 +9,9 @@ class Manips
 public:
     Manips();
     Manips(Person affectedPerson);
-    virtual void inverse();
+    virtual void undoOperation();
+    virtual void redoOperation();
 
     Person affectedPerson;
 private:
 };
-
-Manips::Manips()
-{
-
-}
-
-Manips::Manips(Person aP) : affectedPerson(aP)
-{
-
-}
-
-void Manips::inverse()
-{
-
-}
