@@ -37,6 +37,5 @@ void InsertedPerson::undoOperation() // Oposite of action done
 
 void InsertedPerson::redoOperation() // Action done
 {
-    //affectedPerson.print();
     affectedTree->insert(affectedPerson->id, affectedPerson);
 }
