@@ -53,42 +53,48 @@ int main(int argc, char const *argv[])
     addFaculty.redoOperation();
     addFaculty2.redoOperation();
 
-    cout << "----------" << endl;
-
-    cout << "Printing test Faculty" << endl;
-    facultyDatabase.printTree();
-    cout << endl << "Printing test Student" << endl;
-    c.print();
-
-    cout << endl << "Print Advisor Test" << endl;
-    c.printAdvisor(&facultyDatabase);
-
-    cout << endl << "Print Advisees Test" << endl;
-    w.printAdvisees(&studentDatabase);
 
 
 
 
-    cout << "----------" << endl;
-    studentDatabase.printTree();
 
-
-    myPerson2.undoOperation();
-
-    serializer myS;
-    myS.serializeTree(studentDatabase);
-
-    cout << "Testing student Lookup" << endl;
-    cout << studentDatabase.contains(100) << endl;
-    cout << studentDatabase.contains(200) << endl;
-
-    cout << "----------" << endl;
-    studentDatabase.searchPrint(100);
-    studentDatabase.searchPrint(140);
-
-
-    GenStack<Manips> undo(5);
-    GenStack<Manips> redo(5);
+    //
+    // cout << "----------" << endl;
+    //
+    // cout << "Printing test Faculty" << endl;
+    // facultyDatabase.printTree();
+    // cout << endl << "Printing test Student" << endl;
+    // c.print();
+    //
+    // cout << endl << "Print Advisor Test" << endl;
+    // c.printAdvisor(&facultyDatabase);
+    //
+    // cout << endl << "Print Advisees Test" << endl;
+    // w.printAdvisees(&studentDatabase);
+    //
+    //
+    //
+    //
+    // cout << "----------" << endl;
+    // studentDatabase.printTree();
+    //
+    //
+    // myPerson2.undoOperation();
+    //
+    // serializer myS;
+    // myS.serializeTree(studentDatabase);
+    //
+    // cout << "Testing student Lookup" << endl;
+    // cout << studentDatabase.contains(100) << endl;
+    // cout << studentDatabase.contains(200) << endl;
+    //
+    // cout << "----------" << endl;
+    // studentDatabase.searchPrint(100);
+    // studentDatabase.searchPrint(140);
+    //
+    //
+    // GenStack<Manips> undo(5);
+    // GenStack<Manips> redo(5);
 
 
     return 0;
