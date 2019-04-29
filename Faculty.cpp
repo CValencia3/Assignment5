@@ -31,13 +31,17 @@ Faculty::~Faculty()
 
 void Faculty::AddAdvisee(int id)
 {
-    advisees.insertFront(id);
+    if(advisees.find(id)==-1)
+        advisees.insertFront(id);
 }
 
 void Faculty::AddAdvisee(Student *s)
 {
-    advisees.insertFront(s->id);
-    s->advisorID = id;
+    if(advisees.find(id)==-1)
+    {
+        advisees.insertFront(s->id);
+        s->advisorID = id;
+    }
 }
 
 void Faculty::print()
