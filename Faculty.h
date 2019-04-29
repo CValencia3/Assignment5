@@ -23,5 +23,6 @@ public:
     void AddAdvisee(Student *s);
     void print();
     void printAdvisees(BST<Person*> *studentTree);
+    void removeAdvisee(int key);
 
 };

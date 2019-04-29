@@ -59,3 +59,8 @@ void Faculty::save(ofstream &myStream)
         myStream << '\t' << 'k' << '\n';
     }
 }
+
+void Faculty::removeAdvisee(int key)
+{
+    advisees.remove(key);
+}
