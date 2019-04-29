@@ -18,79 +18,98 @@
 #include "Faculty.h"
 #include "serializer.h"
 
+
 int main(int argc, char const *argv[])
 {
     //Create two trees
     BST<Person*> studentDatabase;
     BST<Person*> facultyDatabase;
 
+    //Create serializer
+    serializer myS;
+    myS.deserialize(studentDatabase, facultyDatabase);
+
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     Person *j = new Student();
+    //     studentDatabase.insert(j->id, j);
+    //     Person *k = new Faculty();
+    //     Faculty* l = (Faculty*)k;
+    //     l->AddAdvisee((Student*)j);
+    //     facultyDatabase.insert(k->id, k);
+    // }
+
+
+
+    // myS.serializeTree(studentDatabase, facultyDatabase);
+    cout << "----------" << endl;
+    studentDatabase.printTree();
+    cout << "----------" << endl;
+    facultyDatabase.printTree();
+
+
     //Create some test students and faculty
-    Student s(10,"Matt","Freshman","Music",11,4.0);
-    Student q(100,"Joe","Freshman","Music",11,4.0);
-    Student l;
-    Student c;
-
-    Faculty f;
-    Faculty w;
-
-    //Add students to advisee
-    f.AddAdvisee(10);
-    w.AddAdvisee(&c);
-    w.AddAdvisee(&l);
-
-    //Creat operations and add students
-    InsertedPerson myPerson(&s, &studentDatabase);
-    InsertedPerson myPerson1(&q, &studentDatabase);
-    InsertedPerson myPerson2(&l, &studentDatabase);
-    InsertedPerson student4(&c, &studentDatabase);
-    myPerson.redoOperation();
-    myPerson1.redoOperation();
-    myPerson2.redoOperation();
-    student4.redoOperation();
-
-    InsertedPerson addFaculty(&f, &facultyDatabase);
-    InsertedPerson addFaculty2(&w, &facultyDatabase);
-    addFaculty.redoOperation();
-    addFaculty2.redoOperation();
-
-
-
-
-
-
-    //
-    // cout << "----------" << endl;
-    //
-    // cout << "Printing test Faculty" << endl;
-    // facultyDatabase.printTree();
-    // cout << endl << "Printing test Student" << endl;
-    // c.print();
-    //
-    // cout << endl << "Print Advisor Test" << endl;
-    // c.printAdvisor(&facultyDatabase);
-    //
-    // cout << endl << "Print Advisees Test" << endl;
-    // w.printAdvisees(&studentDatabase);
-    //
-    //
-    //
-    //
-    // cout << "----------" << endl;
-    // studentDatabase.printTree();
-    //
-    //
-    // myPerson2.undoOperation();
-    //
-    // serializer myS;
-    // myS.serializeTree(studentDatabase);
-    //
-    // cout << "Testing student Lookup" << endl;
-    // cout << studentDatabase.contains(100) << endl;
-    // cout << studentDatabase.contains(200) << endl;
-    //
-    // cout << "----------" << endl;
-    // studentDatabase.searchPrint(100);
-    // studentDatabase.searchPrint(140);
+//     Student s(10,"Matt","Freshman","Music",11,4.0);
+//     Student q(100,"Joe","Freshman","Music",11,4.0);
+//     Student l;
+//     Student c;
+//
+//     Faculty f;
+//     Faculty w;
+//
+//     //Add students to advisee
+//     f.AddAdvisee(10);
+//     w.AddAdvisee(&c);
+//     w.AddAdvisee(&l);
+//
+//     //Creat operations and add students
+//     InsertedPerson myPerson(&s, &studentDatabase);
+//     InsertedPerson myPerson1(&q, &studentDatabase);
+//     InsertedPerson myPerson2(&l, &studentDatabase);
+//     InsertedPerson student4(&c, &studentDatabase);
+//     myPerson.redoOperation();
+//     myPerson1.redoOperation();
+//     myPerson2.redoOperation();
+//     student4.redoOperation();
+//
+//     InsertedPerson addFaculty(&f, &facultyDatabase);
+//     InsertedPerson addFaculty2(&w, &facultyDatabase);
+//     addFaculty.redoOperation();
+//     addFaculty2.redoOperation();
+//
+// /////////////////////////////////////////////
+//
+//     cout << "----------" << endl;
+//
+//     cout << "Printing test Faculty" << endl;
+//     facultyDatabase.printTree();
+//     cout << endl << "Printing test Student" << endl;
+//     c.print();
+//
+//     cout << endl << "Print Advisor Test" << endl;
+//     c.printAdvisor(&facultyDatabase);
+//
+//     cout << endl << "Print Advisees Test" << endl;
+//     w.printAdvisees(&studentDatabase);
+//
+//
+//
+//
+//     cout << "----------" << endl;
+//     studentDatabase.printTree();
+//
+//
+//     myPerson2.undoOperation();
+//
+//
+//
+//     cout << "Testing student Lookup" << endl;
+//     cout << studentDatabase.contains(100) << endl;
+//     cout << studentDatabase.contains(200) << endl;
+//
+//     cout << "----------" << endl;
+//     studentDatabase.searchPrint(100);
+//     studentDatabase.searchPrint(140);
     //
     //
     // GenStack<Manips> undo(5);
