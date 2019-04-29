@@ -13,13 +13,14 @@ class InsertedPerson: public Manips
 {
 public:
     InsertedPerson();
-    InsertedPerson(Person *myP, BST<Person*>* aT);
+    InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*>* oT);
     void undoOperation(); // Delete
     void redoOperation();
 
 private:
     Person *affectedPerson;
-    BST<Person*>* affectedTree;
+    BST<Person*>* affectedTree; // Treee that contains the person
+    BST<Person*>* otherTree; // The other tree
 };
 
 InsertedPerson::InsertedPerson()
@@ -27,24 +28,41 @@ InsertedPerson::InsertedPerson()
 
 }
 
-InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT)
-    :affectedPerson(myP), affectedTree(aT)
+InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
+    :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
 
 }
 
 void InsertedPerson::undoOperation() // Oposite of action done
 {
+    int k = 0;
+
     try
     {
-        dynamic_cast<Student&> (*affectedPerson);
-        cout << "Undoing Student" << endl;
+        cout << k++ << endl;
+        Student* tempStud = dynamic_cast<Student*> (affectedPerson);
+
+        cout << k++ << endl;
+
+        Faculty* tempFac = dynamic_cast<Faculty*> (otherTree->findKey(tempStud->advisorID));
+
+        cout << k++ << endl;
+
+        cout << tempFac << endl;
+
+        // tempFac->print();
+
+        tempFac->removeAdvisee(tempStud->id);
+
+        cout << k++ << endl;
     }
     catch(const bad_cast)
     {
         cout << "Undoing Faculty" << endl;
     }
     affectedTree->deleteR(affectedPerson->id);
+    cout << k++ << endl;
 }
 
 void InsertedPerson::redoOperation() // Action done
