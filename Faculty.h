@@ -12,7 +12,8 @@ class Faculty:public Person
 {
 public:
     Faculty();
-    Faculty(int id, string name, string level, string department);
+    Faculty(DoublyLinkedList<int>* IDs);
+    Faculty(int id, string name, string level, string department, DoublyLinkedList<int>* IDs);
     ~Faculty();
     void save(ofstream &myStream);
 

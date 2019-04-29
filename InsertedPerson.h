@@ -13,7 +13,7 @@ class InsertedPerson: public Manips
 {
 public:
     InsertedPerson();
-    InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*>* oT);
+    InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*>* oT, DoublyLinkedList<int>* IDs);
     void undoOperation(); // Delete
     void redoOperation();
 
@@ -21,6 +21,7 @@ private:
     Person *affectedPerson;
     BST<Person*>* affectedTree; // Treee that contains the person
     BST<Person*>* otherTree; // The other tree
+    DoublyLinkedList<int>* facultyIDs;
 };
 
 InsertedPerson::InsertedPerson()
@@ -28,41 +29,39 @@ InsertedPerson::InsertedPerson()
 
 }
 
-InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
+InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
-
+    facultyIDs = IDs;
 }
 
 void InsertedPerson::undoOperation() // Oposite of action done
 {
-    int k = 0;
-
-    try
+    if(affectedPerson->isStudent)
     {
-        cout << k++ << endl;
+        // If it's a student being edited
         Student* tempStud = dynamic_cast<Student*> (affectedPerson);
-
-        cout << k++ << endl;
-
         Faculty* tempFac = dynamic_cast<Faculty*> (otherTree->findKey(tempStud->advisorID));
 
-        cout << k++ << endl;
-
-        cout << tempFac << endl;
-
-        // tempFac->print();
-
         tempFac->removeAdvisee(tempStud->id);
-
-        cout << k++ << endl;
     }
-    catch(const bad_cast)
+    else
     {
-        cout << "Undoing Faculty" << endl;
+        // if it's faculty being edited
+        Faculty* tempFac = dynamic_cast<Faculty*> (affectedPerson);
+        ListNode<int>* current = tempFac->advisees.getHead();
+
+        int numberOfFaculty = facultyIDs->getSize();
+
+        while(current!=NULL)
+        {
+            Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
+
+            tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
+
+            current = current->next;
+        }
     }
-    affectedTree->deleteR(affectedPerson->id);
-    cout << k++ << endl;
 }
 
 void InsertedPerson::redoOperation() // Action done

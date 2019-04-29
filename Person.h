@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include "genDLL.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
     string name;
     string level;
     static const string* names;
+    bool isStudent;
 
     virtual void print();
 

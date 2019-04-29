@@ -8,6 +8,7 @@ Student::Student()
     major = "Comsic Indifference";
     advisorID = id + 1;
     GPA = 6.66;
+    isStudent = true;
 }
 
 Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
@@ -15,7 +16,7 @@ Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
       major{mjr},
       advisorID(adv),
       GPA(gpa)
-      {}
+      { isStudent = true;}
 
 Student::~Student()
 {

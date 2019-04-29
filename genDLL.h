@@ -74,6 +74,7 @@ class DoublyLinkedList
         unsigned int getSize();
         // Delete the element at the given index
         T deletePos(int position);
+        T index(int index);
 };
 
 ////implementation////
@@ -323,4 +324,25 @@ T DoublyLinkedList<T>::deletePos(int position)
     size--;
 
     return temp;
+}
+
+template <class T>
+T DoublyLinkedList<T>::index(int index)
+{
+    if (index > size)
+        throw out_of_range("Given index was out of range of the list");
+
+    int idx = 0;
+
+    ListNode<T> *current = front;
+    ListNode<T> *prev = front;
+
+    while(idx =! index)
+    {
+        prev = current; //stay back
+        current = current->next;
+        ++idx;
+    }
+
+    return current->data;
 }

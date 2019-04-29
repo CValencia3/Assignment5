@@ -24,10 +24,12 @@ int main(int argc, char const *argv[])
     BST<Person*> studentDatabase;
     BST<Person*> facultyDatabase;
 
+    DoublyLinkedList<int> facultyIDs;
+
     //Create some test students and faculty
 
-    Faculty f;
-    Faculty w;
+    Faculty f(&facultyIDs);
+    Faculty w(&facultyIDs);
 
     Student s(10,"Matt","Freshman","Music",f.id,4.0);
     Student q(100,"Joe","Freshman","Music",f.id,4.0);
@@ -40,25 +42,30 @@ int main(int argc, char const *argv[])
     w.AddAdvisee(&l);
 
     //Creat operations and add students
-    InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase);
-    InsertedPerson myPerson1(&q, &studentDatabase, &facultyDatabase);
-    InsertedPerson myPerson2(&l, &studentDatabase, &facultyDatabase);
-    InsertedPerson student4(&c, &studentDatabase, &facultyDatabase);
+    InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
+    InsertedPerson myPerson1(&q, &studentDatabase, &facultyDatabase, &facultyIDs);
+    InsertedPerson myPerson2(&l, &studentDatabase, &facultyDatabase, &facultyIDs);
+    InsertedPerson student4(&c, &studentDatabase, &facultyDatabase, &facultyIDs);
     myPerson.redoOperation();
     myPerson1.redoOperation();
     myPerson2.redoOperation();
     student4.redoOperation();
 
-    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase);
-    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase);
+    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
+    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
     addFaculty.redoOperation();
     addFaculty2.redoOperation();
 
-    facultyDatabase.printTree();
+    studentDatabase.printTree();
 
-    myPerson.undoOperation();
+    cout << "\n\n\n\n";
 
-    facultyDatabase.printTree();
+
+    addFaculty.undoOperation();
+
+    cout << "\n\n\n\n";
+
+    studentDatabase.printTree();
 
 
 

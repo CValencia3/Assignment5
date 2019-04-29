@@ -7,10 +7,23 @@ Faculty::Faculty()
     Person();
     level = "Associate Inky Cloud of Shadows";
     department = "Sentient Darkness";
+    isStudent = false;
 }
-Faculty::Faculty(int id, string nm, string lvl, string dept)
+Faculty::Faculty(DoublyLinkedList<int>* IDs)
+{
+    Person();
+    level = "Associate Inky Cloud of Shadows";
+    department = "Sentient Darkness";
+    isStudent = false;
+    IDs->insertFront(id);
+}
+Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<int>* IDs)
     : Person(id,nm,lvl),
-      department(dept){}
+      department(dept)
+    {
+        isStudent = false;
+        IDs->insertFront(id);
+    }
 Faculty::~Faculty()
 {
 
