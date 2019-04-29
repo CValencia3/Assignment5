@@ -21,5 +21,4 @@ public:
 
     void print();
     void printAdvisor(BST<Person*>* facultyTree);
-
 };
