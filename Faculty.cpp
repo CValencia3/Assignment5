@@ -24,6 +24,12 @@ Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<in
         isStudent = false;
         IDs->insertFront(id);
     }
+Faculty::Faculty(int id, string nm, string lvl, string dept)
+    : Person(id,nm,lvl),
+      department(dept)
+    {
+        isStudent = false;
+    }
 Faculty::~Faculty()
 {
 

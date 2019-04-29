@@ -12,8 +12,9 @@ class Faculty:public Person
 {
 public:
     Faculty();
-    Faculty(DoublyLinkedList<int>* IDs); // Add an overloaded constructor without a list to fix the token[3] issue
+    Faculty(DoublyLinkedList<int>* IDs);
     Faculty(int id, string name, string level, string department, DoublyLinkedList<int>* IDs);
+    Faculty(int id, string name, string level, string department);
     ~Faculty();
     void save(ofstream &myStream);
 
