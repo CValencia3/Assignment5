@@ -19,7 +19,7 @@ public:
 
 private:
     Person *affectedPerson;
-    BST<Person*>* affectedTree; // Treee that contains the person
+    BST<Person*>* affectedTree; // Tree that contains the person
     BST<Person*>* otherTree; // The other tree
     DoublyLinkedList<int>* facultyIDs;
 };

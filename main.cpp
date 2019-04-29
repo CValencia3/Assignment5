@@ -71,23 +71,32 @@ int main(int argc, char const *argv[])
     myPerson2.redoOperation();
     student4.redoOperation();
 
-    s.print();
-
+    studentDatabase.printTree();
     cout << "\n\n\n\n";
 
-    // studentDatabase.printTree();
 
-    cout << "\n\n\n\n";
+    DeletedPerson mP(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
 
-    addFaculty.undoOperation();
+    mP.redoOperation();
 
-    cout << "\n\n\n\n";
+    studentDatabase.printTree();
 
-    s.print();
-
-    addFaculty.redoOperation();
-
-    s.print();
+    // mP.redoOperation();
+    //
+    // s.print();
+    //
+    //
+    // cout << "\n\n\n\n";
+    //
+    // addFaculty.undoOperation();
+    //
+    // cout << "\n\n\n\n";
+    //
+    // s.print();
+    //
+    // addFaculty.redoOperation();
+    //
+    // s.print();
 
 
     // myS.serializeTree(studentDatabase, facultyDatabase);
