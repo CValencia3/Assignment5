@@ -62,6 +62,7 @@ public:
     void printTree();
     void searchPrint(int key);
     void recPrint(TreeNode<T>* node);
+    T findKey(int key);
 
     TreeNode<T>* root;
 };
@@ -269,4 +270,20 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T>* d)
         sp->left = successor->right;
         successor->right = d->right;
     }
+}
+
+template<class T>
+T BST<T>::findKey(int k)
+{
+    TreeNode<T>* current = root;
+
+    while(current!=NULL)
+    {
+        if(k == current->key)
+            return current->value;
+
+        current = (k>current->key)?current->right:current->left;
+    }
+
+    throw invalid_argument("There is no item with this ID in the tree");
 }

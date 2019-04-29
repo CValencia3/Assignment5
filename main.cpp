@@ -25,6 +25,7 @@ int main(int argc, char const *argv[])
     BST<Person*> studentDatabase;
     BST<Person*> facultyDatabase;
 
+<<<<<<< HEAD
     //Create serializer
     serializer myS;
     myS.deserialize(studentDatabase, facultyDatabase);
@@ -38,7 +39,43 @@ int main(int argc, char const *argv[])
     //     l->AddAdvisee((Student*)j);
     //     facultyDatabase.insert(k->id, k);
     // }
+=======
+    //Create some test students and faculty
 
+    Faculty f;
+    Faculty w;
+
+    Student s(10,"Matt","Freshman","Music",f.id,4.0);
+    Student q(100,"Joe","Freshman","Music",f.id,4.0);
+    Student l;
+    Student c;
+
+    //Add students to advisee
+    f.AddAdvisee(10);
+    w.AddAdvisee(&c);
+    w.AddAdvisee(&l);
+
+    //Creat operations and add students
+    InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase);
+    InsertedPerson myPerson1(&q, &studentDatabase, &facultyDatabase);
+    InsertedPerson myPerson2(&l, &studentDatabase, &facultyDatabase);
+    InsertedPerson student4(&c, &studentDatabase, &facultyDatabase);
+    myPerson.redoOperation();
+    myPerson1.redoOperation();
+    myPerson2.redoOperation();
+    student4.redoOperation();
+
+    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase);
+    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase);
+    addFaculty.redoOperation();
+    addFaculty2.redoOperation();
+>>>>>>> 70d4f2e266783030f73c2fe2c4f59db25f903e7d
+
+    facultyDatabase.printTree();
+
+    myPerson.undoOperation();
+
+    facultyDatabase.printTree();
 
 
     // myS.serializeTree(studentDatabase, facultyDatabase);

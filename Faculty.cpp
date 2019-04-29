@@ -50,3 +50,8 @@ void Faculty::save(ofstream &myStream)
     Person::save(myStream);
     myStream << department << endl;
 }
+
+void Faculty::removeAdvisee(int key)
+{
+    advisees.remove(key);
+}
