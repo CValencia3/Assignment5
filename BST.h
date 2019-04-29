@@ -93,8 +93,6 @@ void BST<T>::recPrint(TreeNode<T>* node)
 
     recPrint(node->left);
     node->value->print();
-    // T* p = &node->value;
-    // p->print();
     recPrint(node->right);
 }
 

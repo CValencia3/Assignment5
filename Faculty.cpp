@@ -24,6 +24,12 @@ Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<in
         isStudent = false;
         IDs->insertFront(id);
     }
+Faculty::Faculty(int id, string nm, string lvl, string dept)
+    : Person(id,nm,lvl),
+      department(dept)
+    {
+        isStudent = false;
+    }
 Faculty::~Faculty()
 {
 
@@ -37,7 +43,7 @@ void Faculty::AddAdvisee(int id)
 
 void Faculty::AddAdvisee(Student *s)
 {
-    if(advisees.find(id)==-1)
+    if(advisees.find(id) == -1)
     {
         advisees.insertFront(s->id);
         s->advisorID = id;
@@ -70,5 +76,6 @@ void Faculty::save(ofstream &myStream)
 
 void Faculty::removeAdvisee(int key)
 {
+    //How can we get rid of this warning?
     advisees.remove(key);
 }

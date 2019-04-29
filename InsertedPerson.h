@@ -14,6 +14,8 @@ class InsertedPerson: public Manips
 public:
     InsertedPerson();
     InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*>* oT, DoublyLinkedList<int>* IDs);
+    InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT);
+    void recFacultyID(TreeNode<Person*>* node);
     void undoOperation(); // Delete
     void redoOperation();
 
@@ -34,6 +36,23 @@ InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, 
 {
     facultyIDs = IDs;
 }
+InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
+    :affectedPerson(myP), affectedTree(aT), otherTree(oT)
+{
+    if(!myP->isStudent)
+    {
+        facultyIDs = new DoublyLinkedList<int>;
+        recFacultyID(affectedTree->root);
+    }
+
+}
+void InsertedPerson::recFacultyID(TreeNode<Person*>* node)
+{
+    if(node == NULL) return;
+    recFacultyID(node->left);
+    facultyIDs->insertFront(node->key);
+    recFacultyID(node->right);
+}
 
 void InsertedPerson::undoOperation() // Oposite of action done
 {
@@ -50,11 +69,9 @@ void InsertedPerson::undoOperation() // Oposite of action done
         // if it's faculty being edited
         Faculty* tempFac = dynamic_cast<Faculty*> (affectedPerson);
         ListNode<int>* current = tempFac->advisees.getHead();
-
         int numberOfFaculty = facultyIDs->getSize();
         while(current!=NULL && !(otherTree->isEmpty()))
         {
-            cout << "here" << endl;
 
             Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
             cout << "here" << endl;

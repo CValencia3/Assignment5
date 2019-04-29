@@ -24,12 +24,10 @@ int main(int argc, char const *argv[])
     //Create two trees
     BST<Person*> studentDatabase;
     BST<Person*> facultyDatabase;
-
-    DoublyLinkedList<int> facultyIDs;
-
+    cout << "hello" << endl;
     //Create serializer
     serializer myS;
-    myS.deserialize(studentDatabase, facultyDatabase, &facultyIDs);
+    myS.deserialize(studentDatabase, facultyDatabase);
 
 
     // for (int i = 0; i < 10; i++)
@@ -92,31 +90,16 @@ int main(int argc, char const *argv[])
     //
     // studentDatabase.printTree();
 
-    // mP.redoOperation();
-    //
-    // s.print();
-    //
-    //
-    // cout << "\n\n\n\n";
-    //
-    // addFaculty.undoOperation();
-    //
-    // cout << "\n\n\n\n";
-    //
-    // s.print();
-    //
-    // addFaculty.redoOperation();
-    //
-    // s.print();
+    //facultyDatabase.printTree();
 
 
     // myS.serializeTree(studentDatabase, facultyDatabase);
-    // cout << "----------" << endl;
-    // studentDatabase.printTree();
-    // cout << "----------" << endl;
-    // facultyDatabase.printTree();
 
+    //studentDatabase.printTree();
+    cout << "----------" << endl;
+    //facultyDatabase.printTree();
 
+    cout << "here" << endl;
     //Create some test students and faculty
 //     Student s(10,"Matt","Freshman","Music",11,4.0);
 //     Student q(100,"Joe","Freshman","Music",11,4.0);
@@ -132,7 +115,7 @@ int main(int argc, char const *argv[])
 //     w.AddAdvisee(&l);
 //
 //     //Creat operations and add students
-//     InsertedPerson myPerson(&s, &studentDatabase);
+//
 //     InsertedPerson myPerson1(&q, &studentDatabase);
 //     InsertedPerson myPerson2(&l, &studentDatabase);
 //     InsertedPerson student4(&c, &studentDatabase);

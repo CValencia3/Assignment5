@@ -30,9 +30,8 @@ void serializer::serializeNode(TreeNode<Person*>* root, ofstream &myStream)
     if(root->right!=NULL) serializeNode(root->right, myStream);
 }
 
-void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty, DoublyLinkedList<int>* IDs)
+void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 {
-    FacultyIDs = IDs;
     ifstream in ("temp.txt");
 
     string s;
@@ -75,7 +74,7 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty, Doub
             Person *p = new Faculty(parseInt(token[0]),   //ID
                                              token[1],    //Name
                                              token[2],    //Level
-                                             token[3], FacultyIDs);  //department
+                                             token[3]);  //department
 
 
             faculty.insert(p->id, p);
