@@ -60,17 +60,8 @@ void Faculty::printAdvisees(BST<Person*> *sT)
 
 void Faculty::save(ofstream &myStream)
 {
-    // Person::save(myStream);
-    myStream << id << "\n"
-             << '\t' << name << "\n"
-             << '\t' << level << "\n";
-
-    myStream << '\t' << department << '\n';
-
-    for (int i = 0; i < advisees.getSize(); ++i)
-    {
-        myStream << '\t' << 'k' << '\n';
-    }
+    Person::save(myStream);
+    myStream << department << endl;
 }
 
 void Faculty::removeAdvisee(int key)

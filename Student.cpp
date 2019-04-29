@@ -5,7 +5,7 @@ using namespace std;
 Student::Student()
 {
     Person();
-    major = "Comsic Indifference";
+    major = "Cosmic Indifference";
     advisorID = id + 1;
     GPA = 6.66;
     isStudent = true;
@@ -39,8 +39,8 @@ void Student::printAdvisor(BST<Person*>* fT)
 void Student::save(ofstream &myStream)
 {
     Person::save(myStream);
-    myStream << '\t' << major << '\n'
-             << '\t' << advisorID << '\n'
-             << '\t' << GPA << '\n';
+    myStream << major << '|'
+             << advisorID << '|'
+             << GPA << '\n';
 
 }
