@@ -25,7 +25,8 @@ int main(int argc, char const *argv[])
     BST<Person*> studentDatabase;
     BST<Person*> facultyDatabase;
 
-<<<<<<< HEAD
+    DoublyLinkedList<int> facultyIDs;
+
     //Create serializer
     serializer myS;
     myS.deserialize(studentDatabase, facultyDatabase);
@@ -39,7 +40,6 @@ int main(int argc, char const *argv[])
     //     l->AddAdvisee((Student*)j);
     //     facultyDatabase.insert(k->id, k);
     // }
-=======
     //Create some test students and faculty
 
     Faculty f(&facultyIDs);
@@ -69,7 +69,6 @@ int main(int argc, char const *argv[])
     InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
     addFaculty.redoOperation();
     addFaculty2.redoOperation();
->>>>>>> 70d4f2e266783030f73c2fe2c4f59db25f903e7d
 
     studentDatabase.printTree();
 
