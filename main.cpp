@@ -28,8 +28,8 @@ int main(int argc, char const *argv[])
     DoublyLinkedList<int> facultyIDs;
 
     //Create serializer
-    serializer myS;
-    myS.deserialize(studentDatabase, facultyDatabase);
+    // serializer myS;
+    // myS.deserialize(studentDatabase, facultyDatabase);
 
     // for (int i = 0; i < 10; i++)
     // {
@@ -52,8 +52,14 @@ int main(int argc, char const *argv[])
 
     //Add students to advisee
     f.AddAdvisee(10);
+    f.AddAdvisee(100);
     w.AddAdvisee(&c);
     w.AddAdvisee(&l);
+
+    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
+    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
+    addFaculty.redoOperation();
+    addFaculty2.redoOperation();
 
     //Creat operations and add students
     InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
@@ -65,28 +71,30 @@ int main(int argc, char const *argv[])
     myPerson2.redoOperation();
     student4.redoOperation();
 
-    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
-    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
-    addFaculty.redoOperation();
-    addFaculty2.redoOperation();
-
-    studentDatabase.printTree();
+    s.print();
 
     cout << "\n\n\n\n";
 
+    // studentDatabase.printTree();
+
+    cout << "\n\n\n\n";
 
     addFaculty.undoOperation();
 
     cout << "\n\n\n\n";
 
-    studentDatabase.printTree();
+    s.print();
+
+    addFaculty.redoOperation();
+
+    s.print();
 
 
     // myS.serializeTree(studentDatabase, facultyDatabase);
-    cout << "----------" << endl;
-    studentDatabase.printTree();
-    cout << "----------" << endl;
-    facultyDatabase.printTree();
+    // cout << "----------" << endl;
+    // studentDatabase.printTree();
+    // cout << "----------" << endl;
+    // facultyDatabase.printTree();
 
 
     //Create some test students and faculty
