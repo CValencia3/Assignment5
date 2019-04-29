@@ -9,6 +9,7 @@
 #include "Faculty.h"
 
 #include "BST.h"
+#include "genDLL.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ public:
     ~serializer();
     void serializeTree(BST<Person*> &students, BST<Person*> &faculty);
     void serializeNode(TreeNode<Person*>* root, ofstream &myStream);
-    void deserialize(BST<Person*> &students, BST<Person*> &faculty);
+    void deserialize(BST<Person*> &students, BST<Person*> &faculty, DoublyLinkedList<int>* IDs);
 
     int parseInt(string s);
     double parseDouble(string s);
@@ -28,4 +29,6 @@ public:
     void reverseAssignAdvisees(BST<Person*> &students, BST<Person*> &faculty);
     void recAdd(TreeNode<Person*>* node, BST<Person*> &faculty);
     void searchAddAdvisee(int advisor, int advisee, BST<Person*> &faculty);
+
+    DoublyLinkedList<int>* FacultyIDs;
 };

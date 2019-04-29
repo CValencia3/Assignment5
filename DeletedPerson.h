@@ -44,6 +44,7 @@ void DeletedPerson::undoOperation() // Oposite of action done, so insert
         // Insert the student and change the faculty to have them in their list
 
         Student* tempStud = dynamic_cast<Student*> (affectedPerson);
+
         Faculty* tempFac = dynamic_cast<Faculty*> (otherTree->findKey(tempStud->advisorID));
 
         tempFac->AddAdvisee((tempStud->id));
@@ -88,7 +89,7 @@ void DeletedPerson::redoOperation() // Action done, so delete
 
         int numberOfFaculty = facultyIDs->getSize();
 
-        while(current!=NULL)
+        while(current!=NULL&&!(otherTree->isEmpty()))
         {
             Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
 

@@ -28,8 +28,8 @@ int main(int argc, char const *argv[])
     DoublyLinkedList<int> facultyIDs;
 
     //Create serializer
-    // serializer myS;
-    // myS.deserialize(studentDatabase, facultyDatabase);
+    serializer myS;
+    myS.deserialize(studentDatabase, facultyDatabase, &facultyIDs);
 
     // for (int i = 0; i < 10; i++)
     // {
@@ -42,44 +42,44 @@ int main(int argc, char const *argv[])
     // }
     //Create some test students and faculty
 
-    Faculty f(&facultyIDs);
-    Faculty w(&facultyIDs);
-
-    Student s(10,"Matt","Freshman","Music",f.id,4.0);
-    Student q(100,"Joe","Freshman","Music",f.id,4.0);
-    Student l;
-    Student c;
-
-    //Add students to advisee
-    f.AddAdvisee(10);
-    f.AddAdvisee(100);
-    w.AddAdvisee(&c);
-    w.AddAdvisee(&l);
-
-    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
-    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
-    addFaculty.redoOperation();
-    addFaculty2.redoOperation();
-
-    //Creat operations and add students
-    InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
-    InsertedPerson myPerson1(&q, &studentDatabase, &facultyDatabase, &facultyIDs);
-    InsertedPerson myPerson2(&l, &studentDatabase, &facultyDatabase, &facultyIDs);
-    InsertedPerson student4(&c, &studentDatabase, &facultyDatabase, &facultyIDs);
-    myPerson.redoOperation();
-    myPerson1.redoOperation();
-    myPerson2.redoOperation();
-    student4.redoOperation();
-
-    studentDatabase.printTree();
-    cout << "\n\n\n\n";
-
-
-    DeletedPerson mP(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
-
-    mP.redoOperation();
-
-    studentDatabase.printTree();
+    // Faculty f(&facultyIDs);
+    // Faculty w(&facultyIDs);
+    //
+    // Student s(10,"Matt","Freshman","Music",f.id,4.0);
+    // Student q(100,"Joe","Freshman","Music",f.id,4.0);
+    // Student l;
+    // Student c;
+    //
+    // //Add students to advisee
+    // f.AddAdvisee(10);
+    // f.AddAdvisee(100);
+    // w.AddAdvisee(&c);
+    // w.AddAdvisee(&l);
+    //
+    // InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
+    // InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
+    // addFaculty.redoOperation();
+    // addFaculty2.redoOperation();
+    //
+    // //Creat operations and add students
+    // InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
+    // InsertedPerson myPerson1(&q, &studentDatabase, &facultyDatabase, &facultyIDs);
+    // InsertedPerson myPerson2(&l, &studentDatabase, &facultyDatabase, &facultyIDs);
+    // InsertedPerson student4(&c, &studentDatabase, &facultyDatabase, &facultyIDs);
+    // myPerson.redoOperation();
+    // myPerson1.redoOperation();
+    // myPerson2.redoOperation();
+    // student4.redoOperation();
+    //
+    // studentDatabase.printTree();
+    // cout << "\n\n\n\n";
+    //
+    //
+    // DeletedPerson mP(&s, &studentDatabase, &facultyDatabase, &facultyIDs);
+    //
+    // mP.redoOperation();
+    //
+    // studentDatabase.printTree();
 
     // mP.redoOperation();
     //
