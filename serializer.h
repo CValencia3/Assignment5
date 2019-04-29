@@ -21,7 +21,7 @@ public:
     ~serializer();
     void serializeTree(BST<Person*> &students, BST<Person*> &faculty);
     void serializeNode(TreeNode<Person*>* root, ofstream &myStream);
-    void deserialize(BST<Person*> &students, BST<Person*> &faculty, DoublyLinkedList<int>* IDs);
+    void deserialize(BST<Person*> &students, BST<Person*> &faculty);
 
     int parseInt(string s);
     double parseDouble(string s);
