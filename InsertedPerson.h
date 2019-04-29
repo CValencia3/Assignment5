@@ -52,12 +52,19 @@ void InsertedPerson::undoOperation() // Oposite of action done
         ListNode<int>* current = tempFac->advisees.getHead();
 
         int numberOfFaculty = facultyIDs->getSize();
-
         while(current!=NULL && !(otherTree->isEmpty()))
         {
+            cout << "here" << endl;
+
             Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
+            cout << "here" << endl;
+
+
+            cout << tempStud->advisorID << endl;
 
             tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
+            cout << "here" << endl;
+
 
             current = current->next;
         }
@@ -83,19 +90,25 @@ void InsertedPerson::redoOperation() // Action done
     {
         // if it's faculty being edited
 
+
         // Insert the faculty and give them back all of their students
 
         Faculty* tempFac = dynamic_cast<Faculty*> (affectedPerson);
+
         ListNode<int>* current = tempFac->advisees.getHead();
 
         while(current!=NULL && !(otherTree->isEmpty()))
         {
+
             Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
+
 
             tempStud->advisorID = tempFac->id;
 
+
             current = current->next;
         }
+
     }
 
     affectedTree->insert(affectedPerson->id, affectedPerson);
