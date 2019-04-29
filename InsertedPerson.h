@@ -62,21 +62,40 @@ void InsertedPerson::undoOperation() // Oposite of action done
             current = current->next;
         }
     }
+    affectedTree->deleteR(affectedPerson->id);
 }
 
 void InsertedPerson::redoOperation() // Action done
 {
-    try
+    if(affectedPerson->isStudent)
     {
-        dynamic_cast<Student&> (*affectedPerson);
-        cout << "Redoing Student" << endl;
-    }
-    catch(const bad_cast)
-    {
-        cout << "Redoing Faculty" << endl;
-    }
+        // If it's a student being edited
 
-    // Faculty& dynamic_cast<Faculty&> (*affectedPerson);
+        // Insert the student and change the faculty to have them in their list
+
+        Student* tempStud = dynamic_cast<Student*> (affectedPerson);
+        Faculty* tempFac = dynamic_cast<Faculty*> (otherTree->findKey(tempStud->advisorID));
+
+        tempFac->AddAdvisee((tempStud->id));
+    }
+    else
+    {
+        // if it's faculty being edited
+
+        // Insert the faculty and give them back all of their students
+
+        Faculty* tempFac = dynamic_cast<Faculty*> (affectedPerson);
+        ListNode<int>* current = tempFac->advisees.getHead();
+
+        while(current!=NULL && !(otherTree->isEmpty()))
+        {
+            Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
+
+            tempStud->advisorID = tempFac->id;
+
+            current = current->next;
+        }
+    }
 
     affectedTree->insert(affectedPerson->id, affectedPerson);
 }
