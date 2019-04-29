@@ -25,13 +25,14 @@ int main(int argc, char const *argv[])
     BST<Person*> facultyDatabase;
 
     //Create some test students and faculty
-    Student s(10,"Matt","Freshman","Music",11,4.0);
-    Student q(100,"Joe","Freshman","Music",11,4.0);
-    Student l;
-    Student c;
 
     Faculty f;
     Faculty w;
+
+    Student s(10,"Matt","Freshman","Music",f.id,4.0);
+    Student q(100,"Joe","Freshman","Music",f.id,4.0);
+    Student l;
+    Student c;
 
     //Add students to advisee
     f.AddAdvisee(10);
@@ -39,20 +40,25 @@ int main(int argc, char const *argv[])
     w.AddAdvisee(&l);
 
     //Creat operations and add students
-    InsertedPerson myPerson(&s, &studentDatabase);
-    InsertedPerson myPerson1(&q, &studentDatabase);
-    InsertedPerson myPerson2(&l, &studentDatabase);
-    InsertedPerson student4(&c, &studentDatabase);
+    InsertedPerson myPerson(&s, &studentDatabase, &facultyDatabase);
+    InsertedPerson myPerson1(&q, &studentDatabase, &facultyDatabase);
+    InsertedPerson myPerson2(&l, &studentDatabase, &facultyDatabase);
+    InsertedPerson student4(&c, &studentDatabase, &facultyDatabase);
     myPerson.redoOperation();
     myPerson1.redoOperation();
     myPerson2.redoOperation();
     student4.redoOperation();
 
-    InsertedPerson addFaculty(&f, &facultyDatabase);
-    InsertedPerson addFaculty2(&w, &facultyDatabase);
+    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase);
+    InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase);
     addFaculty.redoOperation();
     addFaculty2.redoOperation();
 
+    facultyDatabase.printTree();
+
+    myPerson.undoOperation();
+
+    facultyDatabase.printTree();
 
 
 
