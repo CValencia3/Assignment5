@@ -31,6 +31,7 @@ int main(int argc, char const *argv[])
     serializer myS;
     myS.deserialize(studentDatabase, facultyDatabase, &facultyIDs);
 
+
     // for (int i = 0; i < 10; i++)
     // {
     //     Person *j = new Student();
@@ -42,23 +43,33 @@ int main(int argc, char const *argv[])
     // }
     //Create some test students and faculty
 
-    // Faculty f(&facultyIDs);
+    Faculty f(&facultyIDs);
     // Faculty w(&facultyIDs);
     //
     // Student s(10,"Matt","Freshman","Music",f.id,4.0);
+
     // Student q(100,"Joe","Freshman","Music",f.id,4.0);
     // Student l;
     // Student c;
     //
     // //Add students to advisee
-    // f.AddAdvisee(10);
+    f.AddAdvisee(1176343);
     // f.AddAdvisee(100);
     // w.AddAdvisee(&c);
     // w.AddAdvisee(&l);
     //
-    // InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
+    InsertedPerson addFaculty(&f, &facultyDatabase, &studentDatabase, &facultyIDs);
     // InsertedPerson addFaculty2(&w, &facultyDatabase, &studentDatabase, &facultyIDs);
-    // addFaculty.redoOperation();
+    addFaculty.redoOperation();
+
+    studentDatabase.printTree();
+
+    cout << "\n\n\n\n\n" << endl;
+
+    addFaculty.undoOperation();
+
+    studentDatabase.printTree();
+
     // addFaculty2.redoOperation();
     //
     // //Creat operations and add students
