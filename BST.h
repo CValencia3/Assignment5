@@ -43,6 +43,8 @@ TreeNode<T>::~TreeNode()
     // research how to do this
     // This is so that you can have objects inside and call their destructors first
     // Have to derive for specific
+
+    delete value;
 }
 
 template<class T>
@@ -63,6 +65,8 @@ public:
     void searchPrint(int key);
     void recPrint(TreeNode<T>* node);
     T findKey(int key);
+    int elements();
+    int recElements(TreeNode<T>* node);
 
     TreeNode<T>* root;
 };
@@ -93,6 +97,7 @@ void BST<T>::recPrint(TreeNode<T>* node)
 
     recPrint(node->left);
     node->value->print();
+    cout << endl;
     recPrint(node->right);
 }
 
@@ -284,4 +289,22 @@ T BST<T>::findKey(int k)
     }
 
     throw invalid_argument("There is no item with this ID in the tree");
+}
+
+template<class T>
+
+int BST<T>::elements()
+{
+    return recElements(root);
+}
+
+template<class T>
+int BST<T>::recElements(TreeNode<T>* node)
+{
+    int sum = 0;
+    if(node == NULL) return sum;
+    sum++;
+    sum+=recElements(node->left);
+    sum+=recElements(node->right);
+    return sum;
 }

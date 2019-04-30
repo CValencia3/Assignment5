@@ -219,7 +219,7 @@ T DoublyLinkedList<T>::remove(T key)
     {
         current=current->next;
         if(current == NULL)
-            return NULL;
+            throw invalid_argument("This Key Does Not Exist in the Tree");
     }
 
     if(current == front)//front node
@@ -333,7 +333,7 @@ T DoublyLinkedList<T>::index(int indexInput)
         throw out_of_range("Given index was out of range of the list");
 
     int idx = 0;
-    
+
     ListNode<T> *current = front;
     ListNode<T> *prev = front;
 

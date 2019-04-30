@@ -13,7 +13,8 @@ public:
     Undo(int size);
     ~Undo();
     void push(Manips* manipulation);
-    void pop();
+    Manips* pop();
+    bool isEmpty();
 private:
     GenStack<Manips*>* undoStack;
 };

@@ -13,7 +13,9 @@ public:
     Redo(int size);
     ~Redo();
     void push(Manips* manipulation);
-    void pop();
+    Manips* pop();
+    bool isEmpty();
+    void clear();
 private:
     GenStack<Manips*>* redoStack;
 };

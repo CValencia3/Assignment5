@@ -9,6 +9,7 @@ Faculty::Faculty()
     department = "Sentient Darkness";
     isStudent = false;
 }
+
 Faculty::Faculty(DoublyLinkedList<int>* IDs)
 {
     Person();
@@ -17,6 +18,7 @@ Faculty::Faculty(DoublyLinkedList<int>* IDs)
     isStudent = false;
     IDs->insertFront(id);
 }
+
 Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<int>* IDs)
     : Person(id,nm,lvl),
       department(dept)
@@ -24,12 +26,14 @@ Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<in
         isStudent = false;
         IDs->insertFront(id);
     }
+
 Faculty::Faculty(int id, string nm, string lvl, string dept)
     : Person(id,nm,lvl),
       department(dept)
     {
         isStudent = false;
     }
+
 Faculty::~Faculty()
 {
 

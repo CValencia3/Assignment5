@@ -10,7 +10,7 @@ Redo::Redo()
 
 Redo::Redo(int s)
 {
-    redoStack = new GenStack(5);
+    redoStack = new GenStack(s);
 }
 
 Redo::~Redo()
@@ -23,8 +23,21 @@ void Redo::push(Manips* manipulation)
     GenStack::push(manipulation);
 }
 
-void Redo::pop()
+Manips* Redo::pop()
 {
     Manips* temp = GenStack::pop();
     temp->redoOperation();
+}
+
+bool Redo::isEmpty()
+{
+    return redoStack->isEmpty();
+}
+
+void Redo::clear()
+{
+    while(!isEmpty())
+    {
+        pop();
+    }
 }

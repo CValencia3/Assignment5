@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <type_traits>
 
 using namespace std;
 
@@ -37,11 +38,16 @@ public:
 // Default constructor
 template <class T>
 GenStack<T>::GenStack(){
-    myArray = new T[128];
-    size = 128;
+    myArray = new T[5]; // For some reason, the default constructor is being called and I don't know why
+    size = 5;
     top = -1; // empty
     bottom = -1;
     elements = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        myArray[i] = NULL;
+    }
 }
 
 // Overloaded constructor
@@ -52,39 +58,37 @@ GenStack<T>::GenStack(int maxSize){
     top = -1; // empty
     bottom = -1;
     elements = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        myArray[i] = NULL;
+    }
 }
 
 // Destructor
 template <class T>
 GenStack<T>::~GenStack(){
+    while(!isEmpty())
+    {
+        delete pop();
+    }
+
     if(myArray)
         delete[] myArray;
 }
 
 // Add to top of stack
 template <class T>
-void GenStack<T>::push(T d){
-    // If array is full
-    // if(top == (size-1)){
-    //     // Create a new array
-    //     T* tempArray = new T[size+32];
-    //     // Copy everything over
-    //     for(int i = 0; i < size; ++i)
-    //         tempArray[i]=myArray[i];
-    //
-    //     // Switch around pointers
-    //     T* tempPointer = myArray;
-    //     myArray = tempArray;
-    //     tempArray = tempPointer;
-    //     delete[] tempArray;
-    //     size = size+32;
-    // }
-    // Assign new element
-
+void GenStack<T>::push(T d)
+{
     top = (++top)%size;
 
     if((top == bottom))
         bottom = (++bottom)%size;
+
+
+    if(myArray[top]!=NULL)
+        delete myArray[top];
 
     myArray[top] = d;
 
@@ -98,6 +102,9 @@ T GenStack<T>::pop(){
         throw out_of_range("Your stack is empty.");
 
     T temp = myArray[top];
+
+    delete myArray[top];
+    myArray[top] = NULL;
 
     top = ((--top)+size)%size;
 

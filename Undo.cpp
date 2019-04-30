@@ -10,7 +10,7 @@ Undo::Undo()
 
 Undo::Undo(int s)
 {
-    undoStack = new GenStack(5);
+    undoStack = new GenStack(s);
 }
 
 Undo::~Undo()
@@ -23,8 +23,13 @@ void Undo::push(Manips* manipulation)
     GenStack::push(manipulation);
 }
 
-void Undo::pop()
+Manips* Undo::pop()
 {
     Manips* temp = GenStack::pop();
     temp->undoOperation();
+}
+
+bool Undo::isEmpty()
+{
+    return undoStack->isEmpty();
 }
