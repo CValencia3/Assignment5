@@ -7,13 +7,9 @@
 
 #include "BST.h"
 #include "genDLL.h"
-#include "DeletedPerson.h"
-#include "InsertedPerson.h"
 #include "Student.h"
 #include "Faculty.h"
 #include "serializer.h"
-#include "removeAdvisor.h"
-#include "addAdvisor.h"
 #include "Undo.h"
 #include "Redo.h"
 
@@ -32,8 +28,9 @@ public:
     void addFaculty(int id, string name, string level, string department);
     void deleteFaculty(int id);
 
-    void undo(); // pulls the most recent obect from the undo stack and puts it on the redo stack
-    void redo(); // pulls the most recent obect from the redo stack and puts it on the undo stack
+    void undo();
+    // undo() // pulls the most recent obect from the undo stack and puts it on the redo stack
+    // redo() // pulls the most recent obect from the redo stack and puts it on the undo stack
 
 private:
 
@@ -83,98 +80,53 @@ void Database::exit()
 void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
-
     studentDatabase->insert(tempStudent->id, tempStudent);
 
-
-    InsertedPerson* myNip = new InsertedPerson(tempStudent, studentDatabase, facultyDatabase, facultyIDs);
-
-    cout << "outside: " << myNip << endl; // Correct id
-    cout << "outside: " << myNip->affectedPerson->id << endl; // Correct id
-
-    undoStack->push(myNip); // somehow changes the id
-
-    cout << myNip << endl; // correct id
-
-    Manips* tempVar = undoStack->pop();
+    int numberOfFaculty = facultyDatabase->elements();
+    cout << numberOfFaculty << endl;
+    int assignedFacultyID = facultyIDs->index(rand()%numberOfFaculty);
+    cout << assignedFacultyID << endl;
+    Faculty* randomFaculty = dynamic_cast<Faculty*>(facultyDatabase->findKey(assignedFacultyID));
+    Manips* tempManip = new Manips(tempStudent, studentDatabase, facultyDatabase, facultyIDs, 1);
+    // This constructor assigns random faculty
 
 
 
-    InsertedPerson* myP = dynamic_cast<InsertedPerson*> (tempVar);
-    cout << "outside: " << tempVar->affectedPerson.id << endl;
-
-
-
-
-    redoStack->clear();
+    // Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
+    // studentDatabase->insert(tempStudent->id, tempStudent);
+    //
+    //
+    // // InsertedPerson* myNip = new InsertedPerson(tempStudent, studentDatabase, facultyDatabase, facultyIDs);
+    // undoStack->push(myNip);
 }
 
 void Database::deleteStudent(int id)
 {
-    DeletedPerson* myNip = new DeletedPerson(studentDatabase->findKey(id), studentDatabase, facultyDatabase, facultyIDs);
+    // DeletedPerson* myNip = new DeletedPerson(studentDatabase->findKey(id), studentDatabase, facultyDatabase, facultyIDs);
 
-    undoStack->push(myNip);
-    studentDatabase->deleteR(id);
-
-    redoStack->clear();
+    // undoStack->push(myNip);
+    // studentDatabase->deleteR(id);
 }
 
 void Database::addFaculty(int id, string name, string level, string department)
 {
-    Faculty* tempFaculty = new Faculty(id, name, level, department, facultyIDs);
-
-    InsertedPerson* myNip = new InsertedPerson(tempFaculty, facultyDatabase, studentDatabase, facultyIDs);
-    undoStack->push(myNip);
-
-    facultyDatabase->insert(tempFaculty->id, tempFaculty);
-
-    redoStack->clear();
+    // Faculty* tempFaculty = new Faculty(id, name, level, department, facultyIDs);
+    //
+    // // InsertedPerson* myNip = new InsertedPerson(tempFaculty, facultyDatabase, studentDatabase, facultyIDs);
+    // undoStack->push(myNip);
+    //
+    // facultyDatabase->insert(tempFaculty->id, tempFaculty);
 }
 
 void Database::deleteFaculty(int id)
 {
-    DeletedPerson* myNip = new DeletedPerson(facultyDatabase->findKey(id), facultyDatabase, studentDatabase, facultyIDs);
-    undoStack->push(myNip);
-
-    facultyDatabase->deleteR(id);
-
-    redoStack->clear();
+    // // DeletedPerson* myNip = new DeletedPerson(facultyDatabase->findKey(id), facultyDatabase, studentDatabase, facultyIDs);
+    // undoStack->push(myNip);
+    //
+    // facultyDatabase->deleteR(id);
 }
 
 void Database::undo()
 {
-    cout << "here" << endl;
-
-    if(undoStack->isEmpty())
-    {
-        cout << "empty" << endl;
-        return;
-    }
-
-    cout << "there" << endl;
-
-    Manips* tempManip = undoStack->pop();
-
-    cout << tempManip->affectedPerson.name << endl;
-
-    // Segfault here
-//     tempManip->undoOperation();
-//     cout << "here" << endl;
-//     redoStack->push(tempManip);
-//     cout << "here" << endl;
-// studentDatabase->printTree();
-}
-
-void Database::redo()
-{
-    if(redoStack->isEmpty())
-    {
-        cout << "empty" << endl;
-        return;
-    }
-
-
-    // Manips* tempManip = redoStack->pop();
-    // tempManip->redoOperation();
-    // undoStack->push(tempManip);
+    // Manips* tempManip = undoStack->pop();
 }

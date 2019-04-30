@@ -1,7 +1,5 @@
 #include "GenStack.h"
 #include "Undo.h"
-#include "InsertedPerson.h"
-#include "DeletedPerson.h"
 #include <typeinfo>
 
 
@@ -24,11 +22,11 @@ Undo::~Undo()
 
 void Undo::push(Manips* manipulation)
 {
-    InsertedPerson* myP = dynamic_cast<InsertedPerson*> (manipulation);
-
-    cout << "directy inside: " << myP << endl; // Already broken here
-    cout << "directy inside: " << myP->affectedPerson->id << endl; // Already broken here
-    undoStack->push(myP);
+    // InsertedPerson* myP = dynamic_cast<InsertedPerson*> (manipulation);
+    //
+    // cout << "directy inside: " << myP << endl; // Already broken here
+    // cout << "directy inside: " << myP->affectedPerson->id << endl; // Already broken here
+    undoStack->push(manipulation);
 }
 
 Manips* Undo::pop()
@@ -39,7 +37,7 @@ Manips* Undo::pop()
 
     Manips* temp = undoStack->pop(); // Gives the wrong person
 
-    InsertedPerson* newTemp = dynamic_cast<InsertedPerson*> (temp); // Why the fuck doesn't this work
+    // InsertedPerson* newTemp = dynamic_cast<InsertedPerson*> (temp); // Why the fuck doesn't this work
     cout << "blank" << endl;
 
 
