@@ -32,10 +32,8 @@ public:
     void addFaculty(int id, string name, string level, string department);
     void deleteFaculty(int id);
 
-    void undo();
-    void redo();
-    // undo() // pulls the most recent obect from the undo stack and puts it on the redo stack
-    // redo() // pulls the most recent obect from the redo stack and puts it on the undo stack
+    void undo(); // pulls the most recent obect from the undo stack and puts it on the redo stack
+    void redo(); // pulls the most recent obect from the redo stack and puts it on the undo stack
 
 private:
 
@@ -85,11 +83,28 @@ void Database::exit()
 void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
+
     studentDatabase->insert(tempStudent->id, tempStudent);
 
 
     InsertedPerson* myNip = new InsertedPerson(tempStudent, studentDatabase, facultyDatabase, facultyIDs);
-    undoStack->push(myNip);
+
+    cout << "outside: " << myNip << endl; // Correct id
+    cout << "outside: " << myNip->affectedPerson->id << endl; // Correct id
+
+    undoStack->push(myNip); // somehow changes the id
+
+    cout << myNip << endl; // correct id
+
+    Manips* tempVar = undoStack->pop();
+
+
+
+    InsertedPerson* myP = dynamic_cast<InsertedPerson*> (tempVar);
+    cout << "outside: " << tempVar->affectedPerson.id << endl;
+
+
+
 
     redoStack->clear();
 }
@@ -128,20 +143,38 @@ void Database::deleteFaculty(int id)
 
 void Database::undo()
 {
+    cout << "here" << endl;
+
     if(undoStack->isEmpty())
+    {
+        cout << "empty" << endl;
         return;
+    }
+
+    cout << "there" << endl;
 
     Manips* tempManip = undoStack->pop();
-    tempManip->undoOperation();
-    redoStack->push(tempManip);
+
+    cout << tempManip->affectedPerson.name << endl;
+
+    // Segfault here
+//     tempManip->undoOperation();
+//     cout << "here" << endl;
+//     redoStack->push(tempManip);
+//     cout << "here" << endl;
+// studentDatabase->printTree();
 }
 
 void Database::redo()
 {
     if(redoStack->isEmpty())
+    {
+        cout << "empty" << endl;
         return;
+    }
 
-    Manips* tempManip = redoStack->pop();
-    tempManip->redoOperation();
-    undoStack->push(tempManip);
+
+    // Manips* tempManip = redoStack->pop();
+    // tempManip->redoOperation();
+    // undoStack->push(tempManip);
 }

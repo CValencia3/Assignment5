@@ -20,12 +20,12 @@ Redo::~Redo()
 
 void Redo::push(Manips* manipulation)
 {
-    GenStack::push(manipulation);
+    redoStack->push(manipulation);
 }
 
 Manips* Redo::pop()
 {
-    Manips* temp = GenStack::pop();
+    Manips* temp = redoStack->pop();
     temp->redoOperation();
 }
 

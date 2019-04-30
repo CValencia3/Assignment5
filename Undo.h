@@ -15,6 +15,6 @@ public:
     void push(Manips* manipulation);
     Manips* pop();
     bool isEmpty();
-private:
+// private:
     GenStack<Manips*>* undoStack;
 };

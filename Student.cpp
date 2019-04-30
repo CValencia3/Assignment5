@@ -9,6 +9,7 @@ Student::Student()
     advisorID = id + 1;
     GPA = 6.66;
     isStudent = true;
+    cout << "this constructor" << endl;
 }
 
 Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
@@ -16,7 +17,7 @@ Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
       major{mjr},
       advisorID(adv),
       GPA(gpa)
-      { isStudent = true;}
+      { isStudent = true; cout << "that constructor: " << nm << id << endl;}
 
 Student::~Student()
 {
