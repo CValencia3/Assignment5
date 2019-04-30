@@ -327,21 +327,22 @@ T DoublyLinkedList<T>::deletePos(int position)
 }
 
 template <class T>
-T DoublyLinkedList<T>::index(int index)
+T DoublyLinkedList<T>::index(int indexInput)
 {
-    if (index > size)
+    if (indexInput > size)
         throw out_of_range("Given index was out of range of the list");
 
     int idx = 0;
-
+    
     ListNode<T> *current = front;
     ListNode<T> *prev = front;
 
-    while(idx =! index)
+    while((idx != indexInput) && (current != NULL))
     {
         prev = current; //stay back
+
         current = current->next;
-        ++idx;
+        idx++;
     }
 
     return current->data;
