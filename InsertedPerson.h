@@ -13,6 +13,7 @@ class InsertedPerson: public Manips
 {
 public:
     InsertedPerson();
+    ~InsertedPerson();
     InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*>* oT, DoublyLinkedList<int>* IDs);
     InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT);
     void recFacultyID(TreeNode<Person*>* node);
@@ -29,6 +30,18 @@ private:
 InsertedPerson::InsertedPerson()
 {
 
+}
+
+InsertedPerson::~InsertedPerson()
+{
+    // try
+    // {
+        delete facultyIDs;
+    // }
+    // catch exception
+    // {
+    //
+    // }
 }
 
 InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
@@ -74,13 +87,10 @@ void InsertedPerson::undoOperation() // Oposite of action done
         {
 
             Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
-            cout << "here" << endl;
-
 
             cout << tempStud->advisorID << endl;
 
             tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
-            cout << "here" << endl;
 
 
             current = current->next;
