@@ -68,7 +68,6 @@ GenStack<T>::GenStack(int maxSize){
 // Destructor
 template <class T>
 GenStack<T>::~GenStack(){
-    cout << "There" << endl;
     while(!isEmpty())
     {
         pop();

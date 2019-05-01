@@ -30,8 +30,14 @@ public:
     void exit(); // Serialize function
     void addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa);
     void deleteStudent(int id, string nm, string lvl, string mjr, int adv, double gpa);
-    void addFaculty(int id, string name, string level, string department);
-    void deleteFaculty(int id);
+    void addFaculty(int id, string nm, string lvl, string dpt);
+    void deleteFaculty(int id, string nm, string lvl, string dpt);
+    void collectFaculty();
+    void recCollectFaculty(TreeNode<Person*>* myNode);
+
+    void replaceAdvisor(int studID, int facID); // replace the current advisor with a specific faculty member
+    void removeAdvisor(int facID, int studID);  // Remove the current student from the faculty member's
+                                                // list and randomly assign them
 
     void undo(); // pulls the most recent obect from the undo stack and puts it on the redo stack
     void redo(); // pulls the most recent obect from the redo stack and puts it on the undo stack
@@ -48,7 +54,6 @@ private:
 
 Database::~Database()
 {
-    // cout << "Here" << endl;
     delete studentDatabase;
     delete facultyDatabase;
     delete facultyIDs;
@@ -59,10 +64,10 @@ Database::Database()
     studentDatabase = new BST<Person*>;
     facultyDatabase = new BST<Person*>;
     facultyIDs = new DoublyLinkedList<int>;
-    // undoStack = new Undo(5);
-    // redoStack = new Redo(5);
-
     initialize();
+
+    collectFaculty();
+
 
     //exit();
 }
@@ -79,6 +84,7 @@ void Database::exit()
     myS.serializeTree(*studentDatabase, *facultyDatabase);
 }
 
+// DONE
 void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
@@ -94,11 +100,9 @@ void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, do
     cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
+// DONE
 void Database::deleteStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
-    cout << studentDatabase->elements() << endl;
-
-
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa); // Create student object
 
     Manips* myP = new DeletedPerson(tempStudent, studentDatabase, facultyDatabase); // Create deletedStudent object
@@ -113,16 +117,17 @@ void Database::deleteStudent(int id, string nm, string lvl, string mjr, int adv,
     cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
-void Database::addFaculty(int id, string name, string level, string department)
+// DONE
+void Database::addFaculty(int id, string nm, string lvl, string dpt)
 {
-    Faculty* tempFaculty = new Faculty(id, name, level, department, facultyIDs);
 
-    InsertedPerson* myNip = new InsertedPerson(tempFaculty, facultyDatabase, studentDatabase, facultyIDs);
-
-    Manips* myP = myNip;
-    undoStack.push(myNip);
+    Faculty* tempFaculty = new Faculty(id, nm, lvl, dpt);
 
     facultyDatabase->insert(tempFaculty->id, tempFaculty);
+    facultyIDs->insertFront(tempFaculty->id);
+
+    Manips* myP = new InsertedPerson(tempFaculty, facultyDatabase, studentDatabase);
+    undoStack.push(myP);
 
     redoStack.clear();
 
@@ -130,17 +135,47 @@ void Database::addFaculty(int id, string name, string level, string department)
     cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
-void Database::deleteFaculty(int id)
+// DONE
+void Database::deleteFaculty(int id, string nm, string lvl, string dpt)
 {
-    DeletedPerson* myNip = new DeletedPerson(facultyDatabase->findKey(id), facultyDatabase, studentDatabase, facultyIDs);
+    Faculty* tempFaculty = new Faculty(id, nm, lvl, dpt);
+    DeletedPerson* myNip = new DeletedPerson(tempFaculty, facultyDatabase, studentDatabase);
+
     undoStack.push(myNip);
+    Faculty* actualFaculty = (Faculty*)facultyDatabase->findKey(id);
+
+    facultyIDs->remove(actualFaculty->id);
+
+    int facultyNum = actualFaculty->advisees.getSize();
+
+    while(!(actualFaculty->advisees.isEmpty()))
+    {
+        Student* tempStudent = (Student*)(studentDatabase->findKey(actualFaculty->advisees.removeFront()));
+        tempStudent->advisorID = facultyIDs->index(rand()%facultyNum);
+    }
 
     facultyDatabase->deleteR(id);
-
     redoStack.clear();
 
     cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
     cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
+}
+
+// Done
+void Database::replaceAdvisor(int studID, int facID)
+{
+    addAdvisor* tempAdd = new addAdvisor(studentDatabase->findKey(studID), facID, studentDatabase, facultyDatabase, facultyIDs);
+    tempAdd->redoOperation();
+    undoStack.push(tempAdd);
+    studentDatabase->printTree();
+}
+
+void Database::removeAdvisor(int facID, int studID)
+{
+    addAdvisor* tempAdd = new addAdvisor(studentDatabase->findKey(facID), studID, facultyDatabase, studentDatabase, facultyIDs);
+    tempAdd->redoOperation();
+    undoStack.push(tempAdd);
+    studentDatabase->printTree();
 }
 
 void Database::undo()
@@ -159,8 +194,6 @@ void Database::undo()
         case 1:
         {
             InsertedPerson* temp = (InsertedPerson*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
             temp->undoOperation();
             redoStack.push(temp);
 
@@ -170,8 +203,6 @@ void Database::undo()
         case 2:
         {
             DeletedPerson* temp = (DeletedPerson*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
             temp->undoOperation();
             redoStack.push(temp);
 
@@ -180,11 +211,9 @@ void Database::undo()
         }
         case 3:
         {
-            removeAdvisor* temp = (removeAdvisor*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
-            temp->undoOperation();
-            redoStack.push(temp);
+            // replaceAdvisor* temp = (replaceAdvisor*)pop;
+            // temp->undoOperation();
+            // redoStack.push(temp);
 
             cout << "case: 3" << endl;
             break;
@@ -192,10 +221,10 @@ void Database::undo()
         case 4:
         {
             addAdvisor* temp = (addAdvisor*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
             temp->undoOperation();
             redoStack.push(temp);
+
+            studentDatabase->printTree();
 
             cout << "case: 4" << endl;
             break;
@@ -220,8 +249,6 @@ void Database::redo()
         case 1:
         {
             InsertedPerson* temp = (InsertedPerson*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
             temp->redoOperation();
             undoStack.push(temp);
 
@@ -231,8 +258,6 @@ void Database::redo()
         case 2:
         {
             DeletedPerson* temp = (DeletedPerson*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
             temp->redoOperation();
             undoStack.push(temp);
 
@@ -241,20 +266,16 @@ void Database::redo()
         }
         case 3:
         {
-            removeAdvisor* temp = (removeAdvisor*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
-            temp->redoOperation();
-            undoStack.push(temp);
-
-            cout << "case: 3" << endl;
-            break;
+            // removeAdvisor* temp = (removeAdvisor*)pop;
+            // temp->redoOperation();
+            // undoStack.push(temp);
+            //
+            // cout << "case: 3" << endl;
+            // break;
         }
         case 4:
         {
             addAdvisor* temp = (addAdvisor*)pop;
-
-            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
             temp->redoOperation();
             undoStack.push(temp);
 
@@ -265,4 +286,18 @@ void Database::redo()
 
     cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
     cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
+}
+
+void Database::collectFaculty()
+{
+    recCollectFaculty(facultyDatabase->root);
+}
+
+void Database::recCollectFaculty(TreeNode<Person*>* myNode)
+{
+    if(myNode == NULL) return;
+
+    facultyIDs->insertFront(myNode->value->id);
+    recCollectFaculty(myNode->right);
+    recCollectFaculty(myNode->left);
 }

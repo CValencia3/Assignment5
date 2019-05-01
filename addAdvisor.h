@@ -13,15 +13,16 @@ class addAdvisor: public Manips
 {
 public:
     addAdvisor();
-    addAdvisor(Person *myP, int otherID, BST<Person*>* aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs);
+    addAdvisor(Person *aSt, int facultyID, BST<Person*>* sT, BST<Person*> *fT, DoublyLinkedList<int>* IDs);
     void undoOperation(); // Change Advisor
     void redoOperation(); // Change back
 
 // private:
-    Person *affectedPerson;
-    BST<Person*>* affectedTree; // Tree that contains the person
-    BST<Person*>* otherTree; // Tree that contains the person
-    int otherID;
+    Student* actualStudent;
+    BST<Person*>* studentTree; // Tree that contains the person
+    BST<Person*>* facultyTree; // Tree that contains the person
+    int facultyID;
+    int originalFaculty;
     DoublyLinkedList<int>* facultyIDs;
 };
 
@@ -30,71 +31,41 @@ addAdvisor::addAdvisor()
     id = 4;
 }
 
-addAdvisor::addAdvisor(Person *myP, int oID, BST<Person*>* aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
-    :affectedPerson(myP), affectedTree(aT), otherTree(oT), otherID(oID)
+addAdvisor::addAdvisor(Person *aSt, int fID, BST<Person*>* sT, BST<Person*> *fT, DoublyLinkedList<int>* IDs)
+    :actualStudent((Student*)aSt), studentTree(sT), facultyTree(fT), facultyID(fID)
 {
     id = 4;
     facultyIDs = IDs;
+    originalFaculty = actualStudent->advisorID;
 }
 
 void addAdvisor::undoOperation() // Oposite of action done, so set advisor to old
 {
-    Faculty* tempFac;
-    Student* tempStud;
+    Faculty* tempFac = (Faculty*)(facultyTree->findKey(facultyID));
+    Student* tempStud = actualStudent;
 
-    if(affectedPerson->isStudent)
-    {
-        // If it's a student's advisor being edited
-
-        // removes the faculty and randomly assigns
-
-        tempStud = dynamic_cast<Student*> (affectedPerson);
-        tempFac = dynamic_cast<Faculty*> (otherTree->findKey(otherID));
-    }
-    else
-    {
-        // if it's faculty being edited
-
-        // removes the student and randomly assigns
-
-        tempFac = dynamic_cast<Faculty*> (affectedPerson);
-        tempStud = dynamic_cast<Student*> (otherTree->findKey(otherID));
-    }
-
-    cout << facultyIDs->getSize() << endl;
-    int numberOfFaculty = facultyIDs->getSize();
-
-    tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
-
+    tempStud->advisorID = originalFaculty;
     tempFac->removeAdvisee(tempStud->id);
+
+    Faculty* oldFac = (Faculty*)(facultyTree->findKey(originalFaculty));
+    oldFac->advisees.insertFront(tempStud->id);
+
+
+
+    // int numberOfFaculty = facultyIDs->getSize();
+    //
+    // while(tempFac->id == tempStud->advisorID)
+    // {
+    //     tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
+    // }
 }
 
 void addAdvisor::redoOperation() // Action done, so delete
 {
-    Faculty* tempFac;
-    Student* tempStud;
+    Student* tempStud = actualStudent;
+    Faculty* tempFac = (Faculty*)(facultyTree->findKey(facultyID));
 
-    if(affectedPerson->isStudent)
-    {
-        // If it's a student's advisor being edited
-
-        // Gives the student the faculty member and adds their name to the faculty's list of advisees
-
-        tempStud = dynamic_cast<Student*> (affectedPerson);
-        tempFac = dynamic_cast<Faculty*> (otherTree->findKey(otherID));
-    }
-    else
-    {
-        // if it's faculty being edited
-
-        // Insert the faculty and give them back all of their students
-
-        tempFac = dynamic_cast<Faculty*> (affectedPerson);
-        tempStud = dynamic_cast<Student*> (otherTree->findKey(otherID));
-    }
-
-    int numberOfFaculty = facultyIDs->getSize();
-    tempStud->advisorID = otherID;
+    tempStud->advisorID = facultyID;
 
     tempFac->AddAdvisee(tempStud->id);
 }

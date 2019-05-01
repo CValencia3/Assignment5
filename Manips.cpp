@@ -4,7 +4,7 @@
 
 Manips::Manips()
 {
-    cout << "HERE" << endl;
+
 }
 
 Manips::Manips(Person aP) : affectedPerson(aP)

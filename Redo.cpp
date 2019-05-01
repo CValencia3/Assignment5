@@ -30,7 +30,6 @@ Manips* Redo::pop()
 {
     // Manips* temp = redoStack->pop();
     // temp->redoOperation();
-    cout << "j" << endl;
     return redoStack->pop();
 }
 
