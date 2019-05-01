@@ -44,7 +44,7 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 
     while(getline(in, s))
     {
-        if (s == "---")
+        if (s.find("---") != string::npos)
         {
             student = false;
             continue;
