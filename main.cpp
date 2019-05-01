@@ -1,8 +1,6 @@
 //TO DO
 /*
-1. Add backwards fuctionality to changing a student's advisor
-(the change should be reflected in the advisor's list)
-2. Assigning a random advisor in faculty delete
+Need to go back and clean up this code if there's time. There's a lot of copy/paste code here due to time constraints
 
 */
 #include <string>
@@ -22,6 +20,9 @@ void addNewStudent(Database &myDatabase);
 void deleteStudent(Database &myDatabase);
 void deleteFaculty(Database &myDatabase);
 void addNewFaculty(Database &myDatabase);
+void changeStudentAdvisor(Database &myDatabase);
+void removeStudentFromAdvisor(Database &myDatabase);
+
 
 
 
@@ -155,12 +156,12 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
         }
         case 11:
         {
-
+            changeStudentAdvisor(myDatabase);
             break;
         }
         case 12:
         {
-
+            removeStudentFromAdvisor(myDatabase);
             break;
         }
         case 13:
@@ -447,4 +448,75 @@ void deleteFaculty(Database &myDatabase)
     else
         cout << "That id number isn't in the database. Please try again." << endl;
     cout << endl;
+}
+
+void changeStudentAdvisor(Database &myDatabase)
+{
+    cout << "Please enter a student ID number:" << endl;
+    string userInput = "";
+    int studentNumber = 0;
+
+    while(true)
+    {
+        getline(cin, userInput);
+        studentNumber = stoi(userInput);
+
+        if(isValidID(userInput) && myDatabase.containsStudentID(studentNumber))
+            break;
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
+
+    cout << "Please enter a faculty ID number:" << endl;
+    userInput = "";
+    int facultyNumber = 0;
+
+    while(true)
+    {
+        getline(cin, userInput);
+        facultyNumber = stoi(userInput);
+
+        if(isValidID(userInput) && myDatabase.containsFacultyID(facultyNumber))
+            break;
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
+
+    myDatabase.replaceAdvisor(studentNumber, facultyNumber);
+}
+
+void removeStudentFromAdvisor(Database &myDatabase)
+{
+    string userInput = "";
+    int facultyNumber = 0;
+
+    cout << "Please enter a faculty ID number:" << endl;
+    while(true)
+    {
+        getline(cin, userInput);
+        facultyNumber = stoi(userInput);
+
+        if(isValidID(userInput) && myDatabase.containsFacultyID(facultyNumber))
+            break;
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
+
+
+    userInput = "";
+    int studentNumber = 0;
+    cout << "Please enter a student ID number:" << endl;
+    while(true)
+    {
+        getline(cin, userInput);
+        studentNumber = stoi(userInput);
+
+        if(isValidID(userInput) && myDatabase.containsStudentID(studentNumber))
+        break;
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
+
+
+    myDatabase.switchAdvisor(facultyNumber, studentNumber);
 }

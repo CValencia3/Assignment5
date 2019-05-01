@@ -40,7 +40,7 @@ public:
     bool containsFacultyID(int id);
 
     void replaceAdvisor(int studID, int facID); // replace the current advisor with a specific faculty member
-    void removeAdvisor(int facID, int studID);  // Remove the current student from the faculty member's
+    void switchAdvisor(int facID, int studID);  // Remove the current student from the faculty member's
                                                 // list and randomly assign them
 
     void undo(); // pulls the most recent obect from the undo stack and puts it on the redo stack
@@ -174,11 +174,11 @@ void Database::replaceAdvisor(int studID, int facID)
     studentDatabase->printTree();
 }
 
-void Database::removeAdvisor(int facID, int studID)
+void Database::switchAdvisor(int facID, int studID)
 {
-    addAdvisor* tempAdd = new addAdvisor(studentDatabase->findKey(facID), studID, facultyDatabase, studentDatabase, facultyIDs);
-    tempAdd->redoOperation();
-    undoStack.push(tempAdd);
+    removeAdvisor* tempRemove = new removeAdvisor(facultyDatabase->findKey(facID), studID, facultyDatabase, studentDatabase, facultyIDs);
+    tempRemove->redoOperation();
+    undoStack.push(tempRemove);
     studentDatabase->printTree();
 }
 
