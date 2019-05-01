@@ -15,7 +15,7 @@ Redo::Redo(int s)
 
 Redo::~Redo()
 {
-    delete redoStack;
+    // delete redoStack;
 }
 
 void Redo::push(Manips* manipulation)
@@ -25,8 +25,9 @@ void Redo::push(Manips* manipulation)
 
 Manips* Redo::pop()
 {
-    Manips* temp = redoStack->pop();
-    temp->redoOperation();
+    // Manips* temp = redoStack->pop();
+    // temp->redoOperation();
+    return redoStack->pop();
 }
 
 bool Redo::isEmpty()

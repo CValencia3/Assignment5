@@ -3,15 +3,39 @@
 
 DeletedPerson::DeletedPerson()
 {
-
+id = 2;
+}
+DeletedPerson::~DeletedPerson()
+{
+    delete facultyIDs;
 }
 
 DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
+    id = 2;
     facultyIDs = IDs;
 }
 
+DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
+    :affectedPerson(myP), affectedTree(aT), otherTree(oT)
+{
+    id = 2;
+    if(!myP->isStudent)
+    {
+        facultyIDs = new DoublyLinkedList<int>;
+        recFacultyID(affectedTree->root);
+    }
+
+}
+
+void DeletedPerson::recFacultyID(TreeNode<Person*>* node)
+{
+    if(node == NULL) return;
+    recFacultyID(node->left);
+    facultyIDs->insertFront(node->key);
+    recFacultyID(node->right);
+}
 void DeletedPerson::undoOperation() // Oposite of action done, so insert
 {
     if(affectedPerson->isStudent)

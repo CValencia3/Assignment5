@@ -11,13 +11,3 @@ Manips::Manips(Person aP) : affectedPerson(aP)
 {
 
 }
-
-void Manips::undoOperation()
-{
-
-}
-
-void Manips::redoOperation()
-{
-
-}

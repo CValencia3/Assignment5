@@ -13,7 +13,10 @@ class DeletedPerson: public Manips
 {
 public:
     DeletedPerson();
+    ~DeletedPerson();
     DeletedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs);
+    DeletedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT);
+    void recFacultyID(TreeNode<Person*>* node);
     void undoOperation(); // Delete
     void redoOperation();
 

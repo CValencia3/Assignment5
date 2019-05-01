@@ -2,11 +2,6 @@
 #include <string>
 #include <typeinfo>
 
-#include "Manips.h"
-#include "BST.h"
-#include "Person.h"
-#include "Student.h"
-#include "Faculty.h"
 #include "InsertedPerson.h"
 
 InsertedPerson::InsertedPerson()
@@ -29,11 +24,13 @@ InsertedPerson::~InsertedPerson()
 InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
+    id = 1;
     facultyIDs = IDs;
 }
 InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
+    id = 1;
     if(!myP->isStudent)
     {
         facultyIDs = new DoublyLinkedList<int>;

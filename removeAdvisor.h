@@ -27,12 +27,13 @@ private:
 
 removeAdvisor::removeAdvisor()
 {
-
+    id = 3;
 }
 
 removeAdvisor::removeAdvisor(Person *myP, int oID, BST<Person*>* aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT), otherID(oID)
 {
+    id = 3;
     facultyIDs = IDs;
 }
 

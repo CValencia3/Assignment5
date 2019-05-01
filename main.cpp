@@ -14,8 +14,11 @@
 int main(int argc, char const *argv[])
 {
     Database myDatabase;
-
-    myDatabase.addStudent(100,"Joe","Freshman","Music",1000,4.0);
+    cout << "1" << endl;
+    myDatabase.addStudent(100,"Joe","Freshman","Music",515496,4.0);
+    cout << "2" << endl;
+    myDatabase.undo();
+    cout << "3" << endl;
     // myDatabase.deleteStudent(100);
 
     // myDatabase.undo();

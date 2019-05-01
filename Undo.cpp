@@ -19,37 +19,21 @@ Undo::Undo(int s)
 
 Undo::~Undo()
 {
-    delete undoStack;
+    //delete undoStack;
 }
 
 void Undo::push(Manips* manipulation)
 {
-    InsertedPerson* myP = dynamic_cast<InsertedPerson*> (manipulation);
-
-    cout << "directy inside: " << myP << endl; // Already broken here
-    cout << "directy inside: " << myP->affectedPerson->id << endl; // Already broken here
-    undoStack->push(myP);
+    // InsertedPerson* myP = dynamic_cast<InsertedPerson*> (manipulation);
+    //
+    // cout << "directy inside: " << myP << endl; // Already broken here
+    // cout << "directy inside: " << myP->affectedPerson->id << endl; // Already broken here
+    undoStack->push(manipulation);
 }
 
 Manips* Undo::pop()
 {
-
-
-    cout << "blank" << endl;
-
-    Manips* temp = undoStack->pop(); // Gives the wrong person
-
-    InsertedPerson* newTemp = dynamic_cast<InsertedPerson*> (temp); // Why the fuck doesn't this work
-    cout << "blank" << endl;
-
-
-    // cout << newTemp << endl;
-    cout << "blank" << endl;
-
-    cout << temp << endl;
-
-    cout << "k" << endl;
-    return temp;
+    return undoStack->pop();
 }
 
 bool Undo::isEmpty()

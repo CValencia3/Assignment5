@@ -27,12 +27,13 @@ private:
 
 addAdvisor::addAdvisor()
 {
-
+    id = 4;
 }
 
 addAdvisor::addAdvisor(Person *myP, int oID, BST<Person*>* aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT), otherID(oID)
 {
+    id = 4;
     facultyIDs = IDs;
 }
 
