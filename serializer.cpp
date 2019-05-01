@@ -13,12 +13,23 @@ serializer::~serializer()
 
 void serializer::serializeTree(BST<Person*> &students, BST<Person*> &faculty)
 {
+    cout << "jere" << endl;
+
     ofstream tempStream;
+    cout << "jere" << endl;
+
     tempStream.open("temp.txt");
+    cout << "jere" << endl;
 
     serializeNode(students.root, tempStream);
+    cout << "jere" << endl;
+
     tempStream << "---" << endl;
+    cout << "jere" << endl;
+
     serializeNode(faculty.root, tempStream);
+    cout << "jere" << endl;
+
 
     tempStream.close();
 }

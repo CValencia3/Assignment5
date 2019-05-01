@@ -15,10 +15,10 @@ int main(int argc, char const *argv[])
 {
     Database myDatabase;
 
-    myDatabase.addStudent(100,"Joe","Freshman","Music",1000,4.0);
+    // myDatabase.addStudent(100,"Joe","Freshman","Music",1000,4.0);
     // myDatabase.deleteStudent(100);
 
-    myDatabase.undo();
+    // myDatabase.undo();
     // myDatabase.undo();
 
     // myDatabase.addFaculty(8675309, "Joe Shmoe", "Regional Manager", "SCIENCE BITCH");

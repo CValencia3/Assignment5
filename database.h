@@ -10,8 +10,6 @@
 #include "Student.h"
 #include "Faculty.h"
 #include "serializer.h"
-#include "Undo.h"
-#include "Redo.h"
 
 using namespace std;
 class Database
@@ -28,9 +26,8 @@ public:
     void addFaculty(int id, string name, string level, string department);
     void deleteFaculty(int id);
 
-    void undo();
-    // undo() // pulls the most recent obect from the undo stack and puts it on the redo stack
-    // redo() // pulls the most recent obect from the redo stack and puts it on the undo stack
+    void undo(); // pulls the most recent obect from the undo stack and puts it on the redo stack
+    void redo(); // pulls the most recent obect from the redo stack and puts it on the undo stack
 
 private:
 
@@ -39,8 +36,8 @@ public:
     BST<Person*>* studentDatabase; // Student Tree
     BST<Person*>* facultyDatabase; // Faculty Tree
     DoublyLinkedList<int>* facultyIDs; // Faculty IDs
-    Undo* undoStack;
-    Redo* redoStack;
+
+
     // Redo Stack
 private:
 };
@@ -57,12 +54,21 @@ Database::Database()
     studentDatabase = new BST<Person*>;
     facultyDatabase = new BST<Person*>;
     facultyIDs = new DoublyLinkedList<int>;
-    undoStack = new Undo(5);
-    redoStack = new Redo(5);
+    // undoStack = new Undo(5);
+    // redoStack = new Redo(5);
 
     initialize();
 
+    // studentDatabase->printTree();
+
+
+    BST<Person*>* newTree = studentDatabase->copyTree();
+    // newTree->printTree();
+    delete newTree;
     exit();
+
+    cout << "jere" << endl;
+
 }
 
 void Database::initialize()
@@ -74,59 +80,40 @@ void Database::initialize()
 void Database::exit()
 {
     serializer myS;
+
     myS.serializeTree(*studentDatabase, *facultyDatabase);
+    cout << "done" << endl;
+
 }
 
 void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
+
     studentDatabase->insert(tempStudent->id, tempStudent);
-
-    int numberOfFaculty = facultyDatabase->elements();
-    cout << numberOfFaculty << endl;
-    int assignedFacultyID = facultyIDs->index(rand()%numberOfFaculty);
-    cout << assignedFacultyID << endl;
-    Faculty* randomFaculty = dynamic_cast<Faculty*>(facultyDatabase->findKey(assignedFacultyID));
-    Manips* tempManip = new Manips(tempStudent, studentDatabase, facultyDatabase, facultyIDs, 1);
-    // This constructor assigns random faculty
-
-
-
-    // Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
-    // studentDatabase->insert(tempStudent->id, tempStudent);
-    //
-    //
-    // // InsertedPerson* myNip = new InsertedPerson(tempStudent, studentDatabase, facultyDatabase, facultyIDs);
-    // undoStack->push(myNip);
 }
 
 void Database::deleteStudent(int id)
 {
-    // DeletedPerson* myNip = new DeletedPerson(studentDatabase->findKey(id), studentDatabase, facultyDatabase, facultyIDs);
-
-    // undoStack->push(myNip);
-    // studentDatabase->deleteR(id);
+    studentDatabase->deleteR(id);
 }
 
 void Database::addFaculty(int id, string name, string level, string department)
 {
-    // Faculty* tempFaculty = new Faculty(id, name, level, department, facultyIDs);
-    //
-    // // InsertedPerson* myNip = new InsertedPerson(tempFaculty, facultyDatabase, studentDatabase, facultyIDs);
-    // undoStack->push(myNip);
-    //
     // facultyDatabase->insert(tempFaculty->id, tempFaculty);
 }
 
 void Database::deleteFaculty(int id)
 {
-    // // DeletedPerson* myNip = new DeletedPerson(facultyDatabase->findKey(id), facultyDatabase, studentDatabase, facultyIDs);
-    // undoStack->push(myNip);
-    //
-    // facultyDatabase->deleteR(id);
+    facultyDatabase->deleteR(id);
 }
 
 void Database::undo()
 {
-    // Manips* tempManip = undoStack->pop();
+
+}
+
+void Database::redo()
+{
+
 }

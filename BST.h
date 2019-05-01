@@ -67,6 +67,8 @@ public:
     T findKey(int key);
     int elements();
     int recElements(TreeNode<T>* node);
+    BST<T>* copyTree();
+    void recursiveCopy(TreeNode<T>* node, BST<T>* tT);
 
     TreeNode<T>* root;
 };
@@ -292,7 +294,6 @@ T BST<T>::findKey(int k)
 }
 
 template<class T>
-
 int BST<T>::elements()
 {
     return recElements(root);
@@ -307,4 +308,36 @@ int BST<T>::recElements(TreeNode<T>* node)
     sum+=recElements(node->left);
     sum+=recElements(node->right);
     return sum;
+}
+
+template<class T>
+BST<T>* BST<T>::copyTree()
+{
+    BST<T>* tempTree = new BST<T>;
+    // recursiveCopy(root, tempTree);
+    // cout << "j" << endl;
+    recursiveCopy(root, tempTree);
+}
+
+template<class T>
+void BST<T>::recursiveCopy(TreeNode<T>* node, BST<T>* tT)
+{
+    // cout << node->left << " : " << node->right << endl;
+    if(node == NULL) return;
+
+    recursiveCopy(node->left,tT);
+    node->value->print();
+    cout << endl;
+    recursiveCopy(node->right,tT);
+
+    // if(node == NULL)
+    // {
+    //     cout << "null" << endl;
+    //     return;
+    // }
+    //
+    // recursiveCopy(node->left, tT);
+    // cout << node->value->id;
+    // // cout << node->key << endl;
+    // recursiveCopy(node->left, tT);
 }

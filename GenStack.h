@@ -106,8 +106,6 @@ T GenStack<T>::pop(){
     top = ((--top)+size)%size;
     elements--;
 
-    cout << "currently here: " << temp->affectedPerson->name << endl;
-
     return temp;
 }
 
