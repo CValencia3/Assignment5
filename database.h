@@ -34,6 +34,11 @@ public:
     void deleteFaculty(int id, string nm, string lvl, string dpt);
     void collectFaculty();
     void recCollectFaculty(TreeNode<Person*>* myNode);
+    void printStudentInformation(int id);
+    void printAllStudents();
+    void printFacultyInformation(int id);
+    bool containsStudentID(int id);
+    bool containsFacultyID(int id);
 
     void replaceAdvisor(int studID, int facID); // replace the current advisor with a specific faculty member
     void removeAdvisor(int facID, int studID);  // Remove the current student from the faculty member's
@@ -300,4 +305,43 @@ void Database::recCollectFaculty(TreeNode<Person*>* myNode)
     facultyIDs->insertFront(myNode->value->id);
     recCollectFaculty(myNode->right);
     recCollectFaculty(myNode->left);
+}
+
+void Database::printStudentInformation(int id)
+{
+    cout << endl;
+    studentDatabase->findKey(id)->print();
+}
+
+void Database::printFacultyInformation(int id)
+{
+    cout << endl;
+    facultyDatabase->findKey(id)->print();
+}
+
+bool Database::containsStudentID(int id)
+{
+    try
+    {
+        studentDatabase->findKey(id);
+        return true;
+    }
+    catch(invalid_argument)
+    { return false; }
+}
+
+bool Database::containsFacultyID(int id)
+{
+    try
+    {
+        facultyDatabase->findKey(id);
+        return true;
+    }
+    catch(invalid_argument)
+    { return false; }
+}
+
+void Database::printAllStudents()
+{
+    studentDatabase->printTree();
 }

@@ -67,9 +67,11 @@ void Faculty::printAdvisees(BST<Person*> *sT)
     ListNode<int> *current = advisees.getHead();
     while (current!=NULL)
     {
+        cout << endl;
         sT->searchPrint(current->data);
         current = current->next;
     }
+    cout << endl;
 }
 
 void Faculty::save(ofstream &myStream)

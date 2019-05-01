@@ -49,15 +49,6 @@ void addAdvisor::undoOperation() // Oposite of action done, so set advisor to ol
 
     Faculty* oldFac = (Faculty*)(facultyTree->findKey(originalFaculty));
     oldFac->advisees.insertFront(tempStud->id);
-
-
-
-    // int numberOfFaculty = facultyIDs->getSize();
-    //
-    // while(tempFac->id == tempStud->advisorID)
-    // {
-    //     tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
-    // }
 }
 
 void addAdvisor::redoOperation() // Action done, so delete
