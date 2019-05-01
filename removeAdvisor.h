@@ -17,7 +17,7 @@ public:
     void undoOperation(); // Change Advisor
     void redoOperation(); // Change back
 
-private:
+// private:
     Person *affectedPerson;
     BST<Person*>* affectedTree; // Tree that contains the person
     BST<Person*>* otherTree; // Tree that contains the person

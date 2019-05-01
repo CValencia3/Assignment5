@@ -95,11 +95,30 @@ void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, do
 
 void Database::deleteStudent(int id)
 {
-    DeletedPerson* myNip = new DeletedPerson(studentDatabase->findKey(id), studentDatabase, facultyDatabase, facultyIDs);
 
-    undoStack.push(myNip);
+    // Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
+    //
+    // studentDatabase->insert(tempStudent->id, tempStudent);
+
+
+    // delete student
+    // remove them from faculty list
+    // Add to undo list
+
+    Student* tempStudent = studentDatabase->findKey(id);
+
+    Student* tempStudent = new Student(tempStudent->id, tempStudent->id, tempStudent->level, mjr, adv, gpa);
+    Manips* myP = new DeletedPerson(tempStudent, studentDatabase, facultyDatabase);
+    facultyDatabase->findKey(studentDatabase->findKey(id)->advisorID)->remove(id);
     studentDatabase->deleteR(id);
 
+    undoStack.push(myP);
+
+    // DeletedPerson* myNip = new DeletedPerson(studentDatabase->findKey(id), studentDatabase, facultyDatabase, facultyIDs);
+    //
+    // undoStack.push(myNip);
+    // studentDatabase->deleteR(id);
+    //
     redoStack.clear();
 }
 
@@ -136,18 +155,55 @@ void Database::undo()
     }
     // undoStack->pop()->undoOperation();
     //This is the right cast for insert person.
-    InsertedPerson * temp = (InsertedPerson*)undoStack.pop();
 
-    cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
-    cout << "Last" << endl;
-    //cout << InsertedPerson::undoOperation() << endl;
-    temp->undoOperation();
-    redoStack.push(temp);
+    Manips* pop = undoStack.pop();
+    switch (pop->id)
+    {
+        case 1:
+        {
+            InsertedPerson* temp = (InsertedPerson*)pop;
 
-    cout << "here" << endl;
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->undoOperation();
+            redoStack.push(temp);
 
+            cout << "case: 1" << endl;
+            break;
+        }
+        case 2:
+        {
+            DeletedPerson* temp = (DeletedPerson*)pop;
 
-    studentDatabase->printTree();
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->undoOperation();
+            redoStack.push(temp);
+
+            cout << "case: 2" << endl;
+            break;
+        }
+        case 3:
+        {
+            removeAdvisor* temp = (removeAdvisor*)pop;
+
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->undoOperation();
+            redoStack.push(temp);
+
+            cout << "case: 3" << endl;
+            break;
+        }
+        case 4:
+        {
+            addAdvisor* temp = (addAdvisor*)pop;
+
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->undoOperation();
+            redoStack.push(temp);
+
+            cout << "case: 4" << endl;
+            break;
+        }
+    }
 }
 
 void Database::redo()
@@ -159,7 +215,52 @@ void Database::redo()
     }
 
 
-    // Manips* tempManip = redoStack->pop();
-    // tempManip->redoOperation();
-    // undoStack->push(tempManip);
+    Manips* pop = redoStack.pop();
+    switch (pop->id)
+    {
+        case 1:
+        {
+            InsertedPerson* temp = (InsertedPerson*)pop;
+
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->redoOperation();
+            undoStack.push(temp);
+
+            cout << "case: 1" << endl;
+            break;
+        }
+        case 2:
+        {
+            DeletedPerson* temp = (DeletedPerson*)pop;
+
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->redoOperation();
+            undoStack.push(temp);
+
+            cout << "case: 2" << endl;
+            break;
+        }
+        case 3:
+        {
+            removeAdvisor* temp = (removeAdvisor*)pop;
+
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->redoOperation();
+            undoStack.push(temp);
+
+            cout << "case: 3" << endl;
+            break;
+        }
+        case 4:
+        {
+            addAdvisor* temp = (addAdvisor*)pop;
+
+            cout << temp->affectedPerson->id << " " << temp->affectedPerson->name << endl;
+            temp->redoOperation();
+            undoStack.push(temp);
+
+            cout << "case: 4" << endl;
+            break;
+        }
+    }
 }

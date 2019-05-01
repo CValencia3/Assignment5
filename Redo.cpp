@@ -1,5 +1,8 @@
 #include "GenStack.h"
 #include "Redo.h"
+#include "InsertedPerson.h"
+#include "DeletedPerson.h"
+#include <typeinfo>
 
 using namespace std;
 
@@ -27,6 +30,7 @@ Manips* Redo::pop()
 {
     // Manips* temp = redoStack->pop();
     // temp->redoOperation();
+    cout << "j" << endl;
     return redoStack->pop();
 }
 

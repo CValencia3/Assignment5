@@ -11,14 +11,7 @@ InsertedPerson::InsertedPerson()
 
 InsertedPerson::~InsertedPerson()
 {
-    // try
-    // {
-        delete facultyIDs;
-    // }
-    // catch exception
-    // {
-    //
-    // }
+    delete facultyIDs;
 }
 
 InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
@@ -52,17 +45,9 @@ void InsertedPerson::undoOperation() // Oposite of action done
     if(affectedPerson->isStudent)
     {
         // If it's a student being edited
-
-        cout << "t" << endl;
         Student* tempStud = dynamic_cast<Student*> (affectedPerson);
-        cout << "t" << endl;
-
         Faculty* tempFac = dynamic_cast<Faculty*> (otherTree->findKey(tempStud->advisorID));
-        cout << "t" << endl;
-
         tempFac->removeAdvisee(tempStud->id);
-        cout << "t" << endl;
-
     }
     else
     {
@@ -72,14 +57,9 @@ void InsertedPerson::undoOperation() // Oposite of action done
         int numberOfFaculty = facultyIDs->getSize();
         while(current!=NULL && !(otherTree->isEmpty()))
         {
-
             Student* tempStud = dynamic_cast<Student*> (otherTree->findKey(current->data));
-
             cout << tempStud->advisorID << endl;
-
             tempStud->advisorID = facultyIDs->index(rand()%numberOfFaculty);
-
-
             current = current->next;
         }
     }
@@ -93,12 +73,17 @@ void InsertedPerson::redoOperation() // Action done
         // If it's a student being edited
 
         // Insert the student and change the faculty to have them in their list
-
+        cout << "k" << endl;
+        cout << affectedPerson->id << endl;
         Student* tempStud = dynamic_cast<Student*> (affectedPerson);
+        cout << "k" << endl;
 
         Faculty* tempFac = dynamic_cast<Faculty*> (otherTree->findKey(tempStud->advisorID));
+        cout << "k" << endl;
 
         tempFac->AddAdvisee((tempStud->id));
+        cout << "k" << endl;
+
     }
     else
     {

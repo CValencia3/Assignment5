@@ -102,8 +102,8 @@ T GenStack<T>::pop(){
         throw out_of_range("Your stack is empty.");
 
     T temp = myArray[top];
-    delete myArray[top];
     myArray[top] = NULL;
+    delete myArray[top];
     top = ((--top)+size)%size;
     elements--;
 

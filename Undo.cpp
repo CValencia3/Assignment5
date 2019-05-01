@@ -24,10 +24,6 @@ Undo::~Undo()
 
 void Undo::push(Manips* manipulation)
 {
-    // InsertedPerson* myP = dynamic_cast<InsertedPerson*> (manipulation);
-    //
-    // cout << "directy inside: " << myP << endl; // Already broken here
-    // cout << "directy inside: " << myP->affectedPerson->id << endl; // Already broken here
     undoStack->push(manipulation);
 }
 
