@@ -99,42 +99,49 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
         case 1:
         {
             // cout << 1 << endl;
-            myDatabase.printAllStudents();
+            myDatabase.studentDatabase->printTree();
             break;
         }
         case 2:
         {
+            myDatabase.facultyDatabase->printTree();
             // cout << 2 << endl;
-            printStudentInformation(myDatabase);
             break;
         }
         case 3:
         {
+            printStudentInformation(myDatabase);
+
             // cout << 3 << endl;
-            printFacultyInformation(myDatabase);
             break;
         }
         case 4:
         {
-            printStudentAdvisor(myDatabase);
+            printFacultyInformation(myDatabase);
+
             // cout << 4 << endl;
             break;
         }
         case 5:
         {
-            printFacultyAdvisees(myDatabase);
+            printStudentAdvisor(myDatabase);
+
             // cout << 5 << endl;
             break;
         }
         case 6:
         {
+            printFacultyAdvisees(myDatabase);
 
             // cout << 6 << endl;
             break;
         }
         case 7:
         {
-
+            if(myDatabase.facultyIDs->getSize() > 0)
+                addNewStudent(myDatabase);
+            else
+                cout << "Sorry, but you need at least one faculty member to add students" << endl;
             // cout << 7 << endl;
             break;
         }
@@ -229,13 +236,13 @@ void printOptions()
 {
     cout << "Please select a number coninue:\n"
          << "  1) Print student information (id # asc)\n"
-         << "  2) Find/display student given their id\n"
-         << "  3) Find/display faculty given their id\n"
-         << "  4) Given a student id, print their advisor\n"
-         << "  5) Given a faculty id, print his/her advisees\n"
-         << "  6) Add a new student\n"
-         << "  7) Delete a student given the id\n"
-         << "  8) Add a new faculty member\n"
+         << "  2) Print faculty information (id # asc)\n"
+         << "  3) Find/display student given their id\n"
+         << "  4) Find/display faculty given their id\n"
+         << "  5) Given a student id, print their advisor\n"
+         << "  6) Given a faculty id, print his/her advisees\n"
+         << "  7) Add a new student\n"
+         << "  8) Delete a student given the id\n"
          << "  9) Add a new faculty member\n"
          << "  10) Delete a faculty member given the id\n"
          << "  11) Change a student's advisor given the student id and the new faculty id\n"
@@ -323,5 +330,48 @@ void printFacultyAdvisees(Database &myDatabase)
 
 void addNewStudent(Database &myDatabase)
 {
+    double gpa = 0;
+    string name, level, major;
+    name = level = major = "";
 
+    int id, facID;
+    id = facID = 0;
+
+    cout << "Please enter a student name:" << endl;
+    getline(cin, name);
+    cout << "Please enter a level of schooling:" << endl;
+    getline(cin, level);
+    cout << "Please enter a major:" << endl;
+    getline(cin, major);
+    cout << "Please enter a GPA" << endl;
+
+    string tempString = "";
+    while(true)
+    {
+        try
+        {
+            getline(cin, tempString);
+
+            for(int i = 0; i < tempString.length(); ++i)
+                if (((tempString[i]>'9')||(tempString[i]<'0'))&&(tempString[i] != '.'))
+                    throw invalid_argument("That input contained a non-numeric character");
+
+            gpa = stod(tempString);
+
+            if ((gpa>5)||(gpa<0))
+                throw invalid_argument("Invalid GPA");
+            break;
+        }
+        catch(invalid_argument)
+        {
+            cout << "That was an invalid GPA" << endl;
+        }
+    }
+
+    do { id = rand()%999999; } while(myDatabase.containsStudentID(id) || myDatabase.containsFacultyID(id));
+
+    int numberOfFaculty = myDatabase.facultyIDs->getSize();
+    facID = myDatabase.facultyIDs->index(rand()%numberOfFaculty);
+
+    myDatabase.addStudent(id, name, level, major, facID, gpa);
 }

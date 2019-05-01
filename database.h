@@ -35,7 +35,6 @@ public:
     void collectFaculty();
     void recCollectFaculty(TreeNode<Person*>* myNode);
     void printStudentInformation(int id);
-    void printAllStudents();
     void printFacultyInformation(int id);
     bool containsStudentID(int id);
     bool containsFacultyID(int id);
@@ -339,9 +338,4 @@ bool Database::containsFacultyID(int id)
     }
     catch(invalid_argument)
     { return false; }
-}
-
-void Database::printAllStudents()
-{
-    studentDatabase->printTree();
 }
