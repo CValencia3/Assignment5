@@ -17,6 +17,7 @@
 #include "Undo.h"
 #include "Redo.h"
 
+
 using namespace std;
 class Database
 {
@@ -28,7 +29,7 @@ public:
     void initialize(); // Deserialize function
     void exit(); // Serialize function
     void addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa);
-    void deleteStudent(int id);
+    void deleteStudent(int id, string nm, string lvl, string mjr, int adv, double gpa);
     void addFaculty(int id, string name, string level, string department);
     void deleteFaculty(int id);
 
@@ -85,41 +86,31 @@ void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, do
     studentDatabase->insert(tempStudent->id, tempStudent);
     myS.searchAddAdvisee(adv,id,*facultyDatabase);
     Manips* myP = new InsertedPerson(tempStudent, studentDatabase, facultyDatabase);
-    undoStack.push(myP); // somehow changes the id
-
-    // InsertedPerson* myP = (InsertedPerson*)undoStack->pop();
-    // cout << "outside: " << myP->affectedPerson->id << " " << myP->affectedPerson->name << endl;
-
-    redoStack.clear();
-}
-
-void Database::deleteStudent(int id)
-{
-
-    // Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
-    //
-    // studentDatabase->insert(tempStudent->id, tempStudent);
-
-
-    // delete student
-    // remove them from faculty list
-    // Add to undo list
-
-    Student* tempStudent = studentDatabase->findKey(id);
-
-    Student* tempStudent = new Student(tempStudent->id, tempStudent->id, tempStudent->level, mjr, adv, gpa);
-    Manips* myP = new DeletedPerson(tempStudent, studentDatabase, facultyDatabase);
-    facultyDatabase->findKey(studentDatabase->findKey(id)->advisorID)->remove(id);
-    studentDatabase->deleteR(id);
-
     undoStack.push(myP);
 
-    // DeletedPerson* myNip = new DeletedPerson(studentDatabase->findKey(id), studentDatabase, facultyDatabase, facultyIDs);
-    //
-    // undoStack.push(myNip);
-    // studentDatabase->deleteR(id);
-    //
     redoStack.clear();
+
+    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
+    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
+}
+
+void Database::deleteStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
+{
+    cout << studentDatabase->elements() << endl;
+
+
+    Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa); // Create student object
+
+    Manips* myP = new DeletedPerson(tempStudent, studentDatabase, facultyDatabase); // Create deletedStudent object
+    ((Faculty*)facultyDatabase->findKey(adv))->removeAdvisee(id); // Remove student from list of advisees
+    studentDatabase->deleteR(id); // Remove the student from the database
+
+    undoStack.push(myP); // Add to undo stack
+
+    redoStack.clear(); // Clear the redos
+
+    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
+    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
 void Database::addFaculty(int id, string name, string level, string department)
@@ -134,6 +125,9 @@ void Database::addFaculty(int id, string name, string level, string department)
     facultyDatabase->insert(tempFaculty->id, tempFaculty);
 
     redoStack.clear();
+
+    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
+    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
 void Database::deleteFaculty(int id)
@@ -144,6 +138,9 @@ void Database::deleteFaculty(int id)
     facultyDatabase->deleteR(id);
 
     redoStack.clear();
+
+    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
+    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
 void Database::undo()
@@ -204,6 +201,8 @@ void Database::undo()
             break;
         }
     }
+    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
+    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
 void Database::redo()
@@ -263,4 +262,7 @@ void Database::redo()
             break;
         }
     }
+
+    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
+    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }

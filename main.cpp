@@ -19,8 +19,8 @@ int main(int argc, char const *argv[])
     myDatabase.redo();
 
     myDatabase.deleteStudent(100,"Joe","Freshman","Music",515496,4.0);
+    myDatabase.undo();
 
-    // myDatabase.deleteStudent(100);
 
     // myDatabase.undo();
     // myDatabase.undo();

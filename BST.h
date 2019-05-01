@@ -1,5 +1,29 @@
 #pragma once
 
+// Contents
+
+/*
+BST();
+virtual ~BST();
+void insert(int key, T value);
+bool contains(int key);
+TreeNode<T>* getSuccessor(TreeNode<T>* d);
+bool deleteR(int k);
+
+TreeNode<T>* getMin();
+TreeNode<T>* getMax();
+bool isEmpty();
+void printTree();
+void searchPrint(int key);
+void recPrint(TreeNode<T>* node);
+T findKey(int key);
+int elements();
+int recElements(TreeNode<T>* node);
+
+TreeNode<T>* root;
+*/
+
+
 #include <iostream>
 #include <string>
 
