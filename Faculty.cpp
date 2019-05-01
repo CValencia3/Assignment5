@@ -57,9 +57,11 @@ void Faculty::AddAdvisee(Student *s)
 void Faculty::print()
 {
     Person::print();
-    cout << "Department: " << department << endl;
-    cout << "Advisees: " << endl;
+    cout << "\tDepartment: " << department << endl;
+    cout << "\tAdvisees: " << endl;
+    cout << "----" << endl;
     advisees.printList();
+    cout << "----" << endl;
 }
 
 void Faculty::printAdvisees(BST<Person*> *sT)

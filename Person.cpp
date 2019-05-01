@@ -25,8 +25,8 @@ Person::~Person()
 void Person::print()
 {
     cout << "ID: " << id << endl;
-    cout << "Name: " << name << endl;
-    cout << "Level: " << level << endl;
+    cout << "\tName: " << name << endl;
+    cout << "\tLevel: " << level << endl;
 }
 
 void Person::save(ofstream &myStream)

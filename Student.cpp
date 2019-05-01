@@ -26,9 +26,9 @@ Student::~Student()
 void Student::print()
 {
     Person::print();
-    cout << "Major: " << major << endl;
-    cout << "Advisor: " << advisorID << endl;
-    cout << "GPA: " << GPA << endl;
+    cout << "\tMajor: " << major << endl;
+    cout << "\tAdvisor: " << advisorID << endl;
+    cout << "\tGPA: " << GPA << endl;
 }
 
 void Student::printAdvisor(BST<Person*>* fT)

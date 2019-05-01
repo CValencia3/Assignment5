@@ -69,27 +69,6 @@ int main(int argc, char const *argv[])
     {
        askUserInput(running, myDatabase);
     }
-    /*
-    myDatabase.addFaculty(515496, "Bill Nye", "Dan", "testing");
-
-    myDatabase.addStudent(100,"Joe","Freshman","Music",515496,4.0);
-    // myDatabase.undo();
-    // myDatabase.redo();
-    //
-    // myDatabase.deleteStudent(100,"Joe","Freshman","Music",515496,4.0);
-    // myDatabase.undo();
-
-
-    // myDatabase.undo();
-
-    myDatabase.addFaculty(8675309, "Joe Shmoe", "Regional Manager", "SCIENCE BITCH");
-    // myDatabase.undo();
-    // myDatabase.deleteFaculty(8675309, "Joe Shmoe", "Regional Manager", "SCIENCE BITCH");
-    // myDatabase.replaceAdvisor(100, 8675309);
-    myDatabase.replaceAdvisor(100, 8675309);
-    cout << "\n\n\n\n\n\n\n\n" << endl;
-    myDatabase.undo();
-    */
 
     return 0;
 }
@@ -126,6 +105,13 @@ void askUserInput(bool &running, Database &myDatabase)
     }
 
     processUserInput(running, input, myDatabase);
+
+    if(running)
+    {
+        cout << "Press enter to continue..." << endl;
+        getline(cin, tempString);
+        cout << endl;
+    }
 }
 
 // Processes the user input and decides what function to execute
@@ -219,7 +205,7 @@ bool isValidID(string tempString)
 // Prints the menu of options
 void printOptions()
 {
-    cout << "Please select a number coninue:\n"
+    cout << "Please select a number and press enter to coninue:\n"
          << "  1) Print student information (id # asc)\n"
          << "  2) Print faculty information (id # asc)\n"
          << "  3) Find/display student given their id\n"
