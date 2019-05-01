@@ -13,26 +13,30 @@ serializer::~serializer()
 
 void serializer::serializeTree(BST<Person*> &students, BST<Person*> &faculty)
 {
-    ofstream tempStream;
-    tempStream.open("temp.txt");
+    ofstream facStream;
+    facStream.open("faculty.txt");
+    serializeNode(faculty.root, facStream);
+    facStream.close();
 
-    serializeNode(students.root, tempStream);
-    tempStream << "---" << endl;
-    serializeNode(faculty.root, tempStream);
-
-    tempStream.close();
+    ofstream studStream;
+    studStream.open("students.txt");
+    serializeNode(students.root, studStream);
+    studStream.close();
 }
 
 void serializer::serializeNode(TreeNode<Person*>* root, ofstream &myStream)
 {
-    if(root->left!=NULL) serializeNode(root->left, myStream);
-    if(root!= NULL) root->value->save(myStream);
-    if(root->right!=NULL) serializeNode(root->right, myStream);
+    if(root != NULL)
+    {
+        if(root->left!=NULL) serializeNode(root->left, myStream);
+        root->value->save(myStream);
+        if(root->right!=NULL) serializeNode(root->right, myStream);
+    }
 }
 
 void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 {
-    ifstream in ("temp.txt");
+    ifstream studentIn ("students.txt");
 
     string s;
     int size = 6;
@@ -40,25 +44,20 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
     size_t pos = 0;
     string token[size];
     int count = 0;
-    bool student = true;
 
-    while(getline(in, s))
+    while(getline(studentIn, s))
     {
-        if (s == "---")
-        {
-            student = false;
-            continue;
-        }
-
         while ((pos = s.find(delimiter)) != string::npos)
         {
             token[count] = s.substr(0,pos);
-            count++;
+            if((++count)>5)
+                break;
             s.erase(0,pos + delimiter.length());
         }
-        if(student)
+        token[size - 1] = s;
+
+        try
         {
-            token[size - 1] = s;
             Person *p = new Student(parseInt(token[0]),   //ID
                                              token[1],    //Name
                                              token[2],    //Level
@@ -68,9 +67,30 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 
             students.insert(p->id, p);
         }
-        else
+        catch(exception)
         {
-            token[size - 3] = s;
+            cout << "There was an error reading one of your student records.\n"
+                 << "It has been removed from the database.\n" << endl;
+        }
+        pos = 0;
+        count = 0;
+    }
+    studentIn.close();
+
+    ifstream facultyIn ("faculty.txt");
+
+    while(getline(facultyIn, s))
+    {
+        while ((pos = s.find(delimiter)) != string::npos)
+        {
+            token[count] = s.substr(0,pos);
+            if((++count)>3)
+                break;
+            s.erase(0,pos + delimiter.length());
+        }
+        token[size - 3] = s;
+        try
+        {
             Person *p = new Faculty(parseInt(token[0]),   //ID
                                              token[1],    //Name
                                              token[2],    //Level
@@ -78,13 +98,17 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 
 
             faculty.insert(p->id, p);
-
-            // This needs to be put back later
         }
+        catch(exception)
+        {
+            cout << "There was an error reading one of your faculty records.\n"
+                 << "It has been removed from the database\n" << endl;
+        }
+
         pos = 0;
         count = 0;
     }
-    in.close();
+    facultyIn.close();
     reverseAssignAdvisees(students,faculty);
 
 }

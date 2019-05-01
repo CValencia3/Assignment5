@@ -2,20 +2,28 @@
 
 using namespace std;
 
+// Default contructor
 addAdvisor::addAdvisor()
 {
-    id = 4;
+    id = 4; //4 = add advisor
 }
 
+// Overloaded constructor that takes in:
+    // pointer to a person
+    // id for a faculty
+    // pointer to the student database
+    // pointer to the faculty database
+    // pointer to list of faculty ids
 addAdvisor::addAdvisor(Person *aSt, int fID, BST<Person*>* sT, BST<Person*> *fT, DoublyLinkedList<int>* IDs)
     :actualStudent((Student*)aSt), studentTree(sT), facultyTree(fT), facultyID(fID)
 {
-    id = 4;
+    id = 4; //4 = add advisor
     facultyIDs = IDs;
     originalFaculty = actualStudent->advisorID;
 }
 
-void addAdvisor::undoOperation() // Oposite of action done, so set advisor to old
+// Oposite the action, so set advisor to old
+void addAdvisor::undoOperation()
 {
     Faculty* tempFac = (Faculty*)(facultyTree->findKey(facultyID));
     Student* tempStud = actualStudent;

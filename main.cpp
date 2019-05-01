@@ -120,10 +120,16 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
     switch (userInput)
     {
         case 1:
-            myDatabase.studentDatabase->printTree();
+            if(myDatabase.studentDatabase->elements() == 0)
+                cout << "This tree is empty" << endl;
+            else
+                myDatabase.studentDatabase->printTree();
             break;
         case 2:
-            myDatabase.facultyDatabase->printTree();
+            if(myDatabase.facultyDatabase->elements() == 0)
+                cout << "This tree is empty" << endl;
+            else
+                myDatabase.facultyDatabase->printTree();
             break;
         case 3:
             printStudentInformation(myDatabase);
