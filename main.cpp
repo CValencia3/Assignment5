@@ -310,6 +310,9 @@ void addNewStudent(Database &myDatabase)
     facID = myDatabase.facultyIDs->index(rand()%numberOfFaculty);
 
     myDatabase.addStudent(id, name, level, major, facID, gpa);
+    cout << "Student's randomly assigned ID is: " << id << endl;
+    cout << "Their randomly assigned advisor is: " << facID << endl;
+    cout << "If you would like to change a student's advisor please use command 11" << endl;
 }
 
 // Asks for ID and deletes the student from the database
