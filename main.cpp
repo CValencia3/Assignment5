@@ -19,6 +19,10 @@ void printFacultyAdvisees(Database &mD);
 bool isValidID(string tempString);
 void printOptions();
 void addNewStudent(Database &myDatabase);
+void deleteStudent(Database &myDatabase);
+void deleteFaculty(Database &myDatabase);
+void addNewFaculty(Database &myDatabase);
+
 
 
 int main(int argc, char const *argv[])
@@ -98,42 +102,32 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
     {
         case 1:
         {
-            // cout << 1 << endl;
             myDatabase.studentDatabase->printTree();
             break;
         }
         case 2:
         {
             myDatabase.facultyDatabase->printTree();
-            // cout << 2 << endl;
             break;
         }
         case 3:
         {
             printStudentInformation(myDatabase);
-
-            // cout << 3 << endl;
             break;
         }
         case 4:
         {
             printFacultyInformation(myDatabase);
-
-            // cout << 4 << endl;
             break;
         }
         case 5:
         {
             printStudentAdvisor(myDatabase);
-
-            // cout << 5 << endl;
             break;
         }
         case 6:
         {
             printFacultyAdvisees(myDatabase);
-
-            // cout << 6 << endl;
             break;
         }
         case 7:
@@ -142,49 +136,41 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
                 addNewStudent(myDatabase);
             else
                 cout << "Sorry, but you need at least one faculty member to add students" << endl;
-            // cout << 7 << endl;
             break;
         }
         case 8:
         {
-
-            // cout << 8 << endl;
+            deleteStudent(myDatabase);
             break;
         }
         case 9:
         {
-
-            // cout << 9 << endl;
+            addNewFaculty(myDatabase);
             break;
         }
         case 10:
         {
-
-            // cout << 10 << endl;
+            deleteFaculty(myDatabase);
             break;
         }
         case 11:
         {
 
-            // cout << 11 << endl;
             break;
         }
         case 12:
         {
 
-            // cout << 12 << endl;
             break;
         }
         case 13:
         {
 
-            // cout << 13 << endl;
             break;
         }
         case 14:
         {
 
-            // cout << 14 << endl;
             break;
         }
     }
@@ -337,13 +323,13 @@ void addNewStudent(Database &myDatabase)
     int id, facID;
     id = facID = 0;
 
-    cout << "Please enter a student name:" << endl;
+    cout << "Please enter the student's name:" << endl;
     getline(cin, name);
-    cout << "Please enter a level of schooling:" << endl;
+    cout << "Please enter their class standing:" << endl;
     getline(cin, level);
-    cout << "Please enter a major:" << endl;
+    cout << "Please enter their major:" << endl;
     getline(cin, major);
-    cout << "Please enter a GPA" << endl;
+    cout << "Please enter their GPA" << endl;
 
     string tempString = "";
     while(true)
@@ -374,4 +360,91 @@ void addNewStudent(Database &myDatabase)
     facID = myDatabase.facultyIDs->index(rand()%numberOfFaculty);
 
     myDatabase.addStudent(id, name, level, major, facID, gpa);
+}
+
+void deleteStudent(Database &myDatabase)
+{
+    cout << "Please enter a student ID number:" << endl;
+
+    string userInput = "";
+    int userNum = 0;
+
+    while(true)
+    {
+        getline(cin, userInput);
+        if(isValidID(userInput))
+            break;
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
+
+    userNum = stoi(userInput);
+    if(myDatabase.containsStudentID(userNum))
+    {
+        Student* tempStudent = (Student*)myDatabase.studentDatabase->findKey(userNum);
+
+        myDatabase.deleteStudent(tempStudent->id,
+                                 tempStudent->name,
+                                 tempStudent->level,
+                                 tempStudent->major,
+                                 tempStudent->advisorID,
+                                 tempStudent->GPA);
+    }
+
+    else
+        cout << "That id number isn't in the database. Please try again." << endl;
+    cout << endl;
+}
+
+void addNewFaculty(Database &myDatabase)
+{
+    string name, level, department;
+    name = level = department = "";
+
+    int id;
+    id = 0;
+
+    cout << "Please enter the faculty's name:" << endl;
+    getline(cin, name);
+    cout << "Please enter their level of seniority:" << endl;
+    getline(cin, level);
+    cout << "Please enter their department:" << endl;
+    getline(cin, department);
+
+
+    do { id = rand()%999999; } while(myDatabase.containsStudentID(id) || myDatabase.containsFacultyID(id));
+
+    myDatabase.addFaculty(id, name, level, department);
+}
+
+void deleteFaculty(Database &myDatabase)
+{
+    cout << "Please enter a faculty ID number:" << endl;
+
+    string userInput = "";
+    int userNum = 0;
+
+    while(true)
+    {
+        getline(cin, userInput);
+        if(isValidID(userInput))
+            break;
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
+
+    userNum = stoi(userInput);
+    if(myDatabase.containsFacultyID(userNum))
+    {
+        Faculty* tempFaculty = (Faculty*)myDatabase.facultyDatabase->findKey(userNum);
+
+        myDatabase.deleteFaculty(tempFaculty->id,
+                                 tempFaculty->name,
+                                 tempFaculty->level,
+                                 tempFaculty->department);
+    }
+
+    else
+        cout << "That id number isn't in the database. Please try again." << endl;
+    cout << endl;
 }
