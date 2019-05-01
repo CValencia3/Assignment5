@@ -8,23 +8,54 @@ Need to go back and clean up this code if there's time. There's a lot of copy/pa
 
 #include "database.h"
 
+// These are all functions that deal with user input
+//------------------------------------------------------------//
+// Asks the user what option they want to go with. Takes a bool that controls
+// whether the program is running
 void askUserInput(bool &r, Database &mD);
+
+// Processes the user input and decides what function to execute
 void processUserInput(bool &r, int userInput, Database &mD);
+
+// Asks for an id number and prints the student's information
 void printStudentInformation(Database &mD);
+
+// Asks for an id number and prints the information of the student's advisor
 void printStudentAdvisor(Database &mD);
+
+// Asks for an id number and prints the faculty's's information
 void printFacultyInformation(Database &mD);
+
+// Asks for an id number and prints the students being advised by this faculty member
 void printFacultyAdvisees(Database &mD);
+
+// Takes in a string and checks to see if it's a valid id number
 bool isValidID(string tempString);
+
+// Prints the menu of options
 void printOptions();
+
+// Asks a user for information and uses that to create a new student
 void addNewStudent(Database &myDatabase);
+
+// Asks for ID and deletes the student from the database
 void deleteStudent(Database &myDatabase);
+
+// Asks for ID and deletes faculty from the database
 void deleteFaculty(Database &myDatabase);
+
+// Asks for information and uses that to create a new student
 void addNewFaculty(Database &myDatabase);
+
+// Asks for student and faculty ids, and then changes the student's advisor to the given faculty
 void changeStudentAdvisor(Database &myDatabase);
+
+// Asks for student and faculty ids, and then changes the student's advisor to to a random faculty member
 void removeStudentFromAdvisor(Database &myDatabase);
 
-
-
+// Asks the user for input and parses it into an id
+int parseUserID(string idType);
+//------------------------------------------------------------//
 
 int main(int argc, char const *argv[])
 {
@@ -33,8 +64,6 @@ int main(int argc, char const *argv[])
 
     // Introduction
     cout << "Welcome to our student database project." << endl;
-
-    // askUserInput(running, myDatabase);
 
     while(running)
     {
@@ -65,6 +94,8 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+// Asks the user what option they want to go with. Takes a bool that controls
+// whether the program is running
 void askUserInput(bool &running, Database &myDatabase)
 {
     string tempString = "";
@@ -97,109 +128,68 @@ void askUserInput(bool &running, Database &myDatabase)
     processUserInput(running, input, myDatabase);
 }
 
+// Processes the user input and decides what function to execute
 void processUserInput(bool &r, int userInput, Database &myDatabase)
 {
     switch (userInput)
     {
         case 1:
-        {
             myDatabase.studentDatabase->printTree();
             break;
-        }
         case 2:
-        {
             myDatabase.facultyDatabase->printTree();
             break;
-        }
         case 3:
-        {
             printStudentInformation(myDatabase);
             break;
-        }
         case 4:
-        {
             printFacultyInformation(myDatabase);
             break;
-        }
         case 5:
-        {
             printStudentAdvisor(myDatabase);
             break;
-        }
         case 6:
-        {
             printFacultyAdvisees(myDatabase);
             break;
-        }
         case 7:
-        {
             if(myDatabase.facultyIDs->getSize() > 0)
                 addNewStudent(myDatabase);
             else
                 cout << "Sorry, but you need at least one faculty member to add students" << endl;
             break;
-        }
         case 8:
-        {
             deleteStudent(myDatabase);
             break;
-        }
         case 9:
-        {
             addNewFaculty(myDatabase);
             break;
-        }
         case 10:
-        {
             deleteFaculty(myDatabase);
             break;
-        }
         case 11:
-        {
             changeStudentAdvisor(myDatabase);
             break;
-        }
         case 12:
-        {
             removeStudentFromAdvisor(myDatabase);
             break;
-        }
         case 13:
-        {
             myDatabase.undo();
             break;
-        }
         case 14:
-        {
             myDatabase.redo();
             break;
-        }
         case 15:
-        {
             myDatabase.exit();
             r = false;
             break;
-        }
     }
 }
 
+// Asks for an id number and prints the student's information
 void printStudentInformation(Database &myDatabase)
 {
-    cout << "Please enter a student ID number:" << endl;
+    int userNum = parseUserID("student");
 
-    string userInput = "";
-    int userNum = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        if(isValidID(userInput))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    userNum = stoi(userInput);
     if(myDatabase.containsStudentID(userNum))
         myDatabase.printStudentInformation(userNum);
     else
@@ -207,6 +197,7 @@ void printStudentInformation(Database &myDatabase)
     cout << endl;
 }
 
+// Takes in a string and checks to see if it's a valid id number
 bool isValidID(string tempString)
 {
     int input = 0;
@@ -225,6 +216,7 @@ bool isValidID(string tempString)
     }
 }
 
+// Prints the menu of options
 void printOptions()
 {
     cout << "Please select a number coninue:\n"
@@ -245,23 +237,11 @@ void printOptions()
          << "  15) Exit" << endl;
 }
 
+// Asks for an id number and prints the faculty's's information
 void printFacultyInformation(Database &myDatabase)
 {
-    cout << "Please enter a faculty ID number:" << endl;
+    int userNum = parseUserID("faculty");
 
-    string userInput = "";
-    int userNum = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        if(isValidID(userInput))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    userNum = stoi(userInput);
     if(myDatabase.containsFacultyID(userNum))
         myDatabase.printFacultyInformation(userNum);
     else
@@ -269,23 +249,11 @@ void printFacultyInformation(Database &myDatabase)
     cout << endl;
 }
 
+// Asks for an id number and prints the information of the student's advisor
 void printStudentAdvisor(Database &myDatabase)
 {
-    cout << "Please enter a student ID number:" << endl;
+    int userNum = parseUserID("student");
 
-    string userInput = "";
-    int userNum = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        if(isValidID(userInput))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    userNum = stoi(userInput);
     if(myDatabase.containsStudentID(userNum))
     {
         int advisorID = ((Student*)myDatabase.studentDatabase->findKey(userNum))->advisorID;
@@ -296,23 +264,10 @@ void printStudentAdvisor(Database &myDatabase)
     cout << endl;
 }
 
+// Asks for an id number and prints the students being advised by this faculty member
 void printFacultyAdvisees(Database &myDatabase)
 {
-    cout << "Please enter a faculty ID number:" << endl;
-
-    string userInput = "";
-    int userNum = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        if(isValidID(userInput))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    userNum = stoi(userInput);
+    int userNum = parseUserID("faculty");
     if(myDatabase.containsFacultyID(userNum))
     {
         ((Faculty*)myDatabase.facultyDatabase->findKey(userNum))->printAdvisees(myDatabase.studentDatabase);
@@ -322,6 +277,7 @@ void printFacultyAdvisees(Database &myDatabase)
     cout << endl;
 }
 
+// Asks a user for information and uses that to create a new student
 void addNewStudent(Database &myDatabase)
 {
     double gpa = 0;
@@ -370,23 +326,10 @@ void addNewStudent(Database &myDatabase)
     myDatabase.addStudent(id, name, level, major, facID, gpa);
 }
 
+// Asks for ID and deletes the student from the database
 void deleteStudent(Database &myDatabase)
 {
-    cout << "Please enter a student ID number:" << endl;
-
-    string userInput = "";
-    int userNum = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        if(isValidID(userInput))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    userNum = stoi(userInput);
+    int userNum = parseUserID("student");
     if(myDatabase.containsStudentID(userNum))
     {
         Student* tempStudent = (Student*)myDatabase.studentDatabase->findKey(userNum);
@@ -404,6 +347,7 @@ void deleteStudent(Database &myDatabase)
     cout << endl;
 }
 
+// Asks for information and uses that to create a new student
 void addNewFaculty(Database &myDatabase)
 {
     string name, level, department;
@@ -421,27 +365,13 @@ void addNewFaculty(Database &myDatabase)
 
 
     do { id = rand()%999999; } while(myDatabase.containsStudentID(id) || myDatabase.containsFacultyID(id));
-
     myDatabase.addFaculty(id, name, level, department);
 }
 
+// Asks for ID and deletes faculty from the database
 void deleteFaculty(Database &myDatabase)
 {
-    cout << "Please enter a faculty ID number:" << endl;
-
-    string userInput = "";
-    int userNum = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        if(isValidID(userInput))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    userNum = stoi(userInput);
+    int userNum = parseUserID("faculty");
     if(myDatabase.containsFacultyID(userNum))
     {
         Faculty* tempFaculty = (Faculty*)myDatabase.facultyDatabase->findKey(userNum);
@@ -451,79 +381,43 @@ void deleteFaculty(Database &myDatabase)
                                  tempFaculty->level,
                                  tempFaculty->department);
     }
-
     else
         cout << "That id number isn't in the database. Please try again." << endl;
     cout << endl;
 }
 
+// Asks for student and faculty ids, and then changes the student's advisor to the given faculty
 void changeStudentAdvisor(Database &myDatabase)
 {
-    cout << "Please enter a student ID number:" << endl;
-    string userInput = "";
-    int studentNumber = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        studentNumber = stoi(userInput);
-
-        if(isValidID(userInput) && myDatabase.containsStudentID(studentNumber))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-    cout << "Please enter a faculty ID number:" << endl;
-    userInput = "";
-    int facultyNumber = 0;
-
-    while(true)
-    {
-        getline(cin, userInput);
-        facultyNumber = stoi(userInput);
-
-        if(isValidID(userInput) && myDatabase.containsFacultyID(facultyNumber))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
+    int studentNumber = parseUserID("student");
+    int facultyNumber = parseUserID("faculty");
 
     myDatabase.replaceAdvisor(studentNumber, facultyNumber);
 }
 
+// Asks for student and faculty ids, and then changes the student's advisor to to a random faculty member
 void removeStudentFromAdvisor(Database &myDatabase)
 {
-    string userInput = "";
-    int facultyNumber = 0;
-
-    cout << "Please enter a faculty ID number:" << endl;
-    while(true)
-    {
-        getline(cin, userInput);
-        facultyNumber = stoi(userInput);
-
-        if(isValidID(userInput) && myDatabase.containsFacultyID(facultyNumber))
-            break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
-
-    userInput = "";
-    int studentNumber = 0;
-    cout << "Please enter a student ID number:" << endl;
-    while(true)
-    {
-        getline(cin, userInput);
-        studentNumber = stoi(userInput);
-
-        if(isValidID(userInput) && myDatabase.containsStudentID(studentNumber))
-        break;
-
-        cout << "That was an invalid ID number. Please try again" << endl;
-    }
-
+    int facultyNumber = parseUserID("faculty");
+    int studentNumber = parseUserID("student");
 
     myDatabase.switchAdvisor(facultyNumber, studentNumber);
+}
+
+// Asks the user for input and parses it into an id
+int parseUserID(string idType)
+{
+    cout << "Please enter a " << idType << " ID number:" << endl;
+
+    string userInput = "";
+    int userNum = 0;
+
+    while(true)
+    {
+        getline(cin, userInput);
+        if(isValidID(userInput))
+            return stoi(userInput);
+
+        cout << "That was an invalid ID number. Please try again" << endl;
+    }
 }
