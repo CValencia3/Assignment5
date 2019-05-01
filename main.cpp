@@ -34,12 +34,12 @@ int main(int argc, char const *argv[])
     // Introduction
     cout << "Welcome to our student database project." << endl;
 
-    askUserInput(running, myDatabase);
+    // askUserInput(running, myDatabase);
 
-    // while(runing)
-    // {
-    //    askUserInput(running, myDatabase);
-    // }
+    while(running)
+    {
+       askUserInput(running, myDatabase);
+    }
     /*
     myDatabase.addFaculty(515496, "Bill Nye", "Dan", "testing");
 
@@ -84,7 +84,7 @@ void askUserInput(bool &running, Database &myDatabase)
 
             input = stoi(tempString);
 
-            if(input>14)
+            if(input>15)
                 throw invalid_argument("That was not one of the options on the list");
             break;
         }
@@ -166,12 +166,18 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
         }
         case 13:
         {
-
+            myDatabase.undo();
             break;
         }
         case 14:
         {
-
+            myDatabase.redo();
+            break;
+        }
+        case 15:
+        {
+            myDatabase.exit();
+            r = false;
             break;
         }
     }
@@ -235,7 +241,8 @@ void printOptions()
          << "  11) Change a student's advisor given the student id and the new faculty id\n"
          << "  12) Remove an advisee from a faculty member given the ids\n"
          << "  13) Rollback\n"
-         << "  14) Exit" << endl;
+         << "  14) Rollforward\n"
+         << "  15) Exit" << endl;
 }
 
 void printFacultyInformation(Database &myDatabase)

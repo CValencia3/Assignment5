@@ -186,7 +186,7 @@ void Database::undo()
 {
     if(undoStack.isEmpty())
     {
-        cout << "empty" << endl;
+        cout << "There's nothing to undo" << endl;
         return;
     }
     // undoStack->pop()->undoOperation();
@@ -242,7 +242,7 @@ void Database::redo()
 {
     if(redoStack.isEmpty())
     {
-        cout << "empty" << endl;
+        cout << "There's nothing to redo" << endl;
         return;
     }
 
