@@ -143,20 +143,22 @@ void Database::undo()
     {
         case 1:
         {
+            cout << "Undoing add person..." << endl;
             InsertedPerson* temp = (InsertedPerson*)pop;
             temp->undoOperation();
             redoStack.push(temp);
 
-            cout << "case: 1" << endl;
+
             break;
         }
         case 2:
         {
+            cout << "Undoing remove person..." << endl;
             DeletedPerson* temp = (DeletedPerson*)pop;
             temp->undoOperation();
             redoStack.push(temp);
 
-            cout << "case: 2" << endl;
+
             break;
         }
         case 3:
@@ -198,20 +200,22 @@ void Database::redo()
     {
         case 1:
         {
+            cout << "Adding person back..." << endl;
             InsertedPerson* temp = (InsertedPerson*)pop;
             temp->redoOperation();
             undoStack.push(temp);
 
-            cout << "case: 1" << endl;
+
             break;
         }
         case 2:
         {
+            cout << "Removing person..." << endl;
             DeletedPerson* temp = (DeletedPerson*)pop;
             temp->redoOperation();
             undoStack.push(temp);
 
-            cout << "case: 2" << endl;
+
             break;
         }
         case 3:
