@@ -65,6 +65,9 @@ void removeStudentFromAdvisor(Database &myDatabase);
 
 // Asks the user for input and parses it into an id
 int parseUserID(string idType);
+
+void bye();
+
 //------------------------------------------------------------//
 
 int main(int argc, char const *argv[])
@@ -207,7 +210,7 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
             myDatabase.redo();
             break;
 
-            
+
         case 15:
             myDatabase.exit();
             r = false;
