@@ -11,19 +11,23 @@ serializer::~serializer()
 
 }
 
+// Serialize a whole tree
 void serializer::serializeTree(BST<Person*> &students, BST<Person*> &faculty)
 {
+    // Serialize faculty
     ofstream facStream;
     facStream.open("faculty.txt");
     serializeNode(faculty.root, facStream);
     facStream.close();
 
+    // Serialze students
     ofstream studStream;
     studStream.open("students.txt");
     serializeNode(students.root, studStream);
     studStream.close();
 }
 
+// Recursively serialize a node
 void serializer::serializeNode(TreeNode<Person*>* root, ofstream &myStream)
 {
     if(root != NULL)
@@ -34,8 +38,10 @@ void serializer::serializeNode(TreeNode<Person*>* root, ofstream &myStream)
     }
 }
 
+// Deserialize from a file
 void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 {
+    // deserialize students
     ifstream studentIn ("students.txt");
 
     string s;
@@ -77,6 +83,7 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
     }
     studentIn.close();
 
+    // deserialize students
     ifstream facultyIn ("faculty.txt");
 
     while(getline(facultyIn, s))
@@ -113,19 +120,25 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
 
 }
 
+// Parse integer
 int serializer::parseInt(string s)
 {
     return stoi(s);
 }
+
+// Parse double
 double serializer::parseDouble(string s)
 {
     return stod(s);
 }
+
+// Assign advisees to advisors
 void serializer::reverseAssignAdvisees(BST<Person*> &students, BST<Person*> &faculty)
 {
     recAdd(students.root, faculty);
 }
 
+// recursive assign
 void serializer::recAdd(TreeNode<Person*>* node, BST<Person*> &faculty)
 {
     if(node == NULL) return;
@@ -136,6 +149,8 @@ void serializer::recAdd(TreeNode<Person*>* node, BST<Person*> &faculty)
     recAdd(node->right, faculty);
 
 }
+
+// find advisee and assign to faculty
 void serializer::searchAddAdvisee(int advisor, int advisee, BST<Person*> &faculty)
 {
     if(faculty.contains(advisor))

@@ -35,7 +35,8 @@ void addAdvisor::undoOperation()
     oldFac->advisees.insertFront(tempStud->id);
 }
 
-void addAdvisor::redoOperation() // Action done, so delete
+// Do the action over again, so set advisor to the new one again
+void addAdvisor::redoOperation()
 {
     Student* tempStud = actualStudent;
     Faculty* tempFac = (Faculty*)(facultyTree->findKey(facultyID));

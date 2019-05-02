@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// Testing purposes
 Faculty::Faculty()
 {
     Person();
@@ -10,6 +11,7 @@ Faculty::Faculty()
     isStudent = false;
 }
 
+// Testing purposes
 Faculty::Faculty(DoublyLinkedList<int>* IDs)
 {
     Person();
@@ -19,6 +21,7 @@ Faculty::Faculty(DoublyLinkedList<int>* IDs)
     IDs->insertFront(id);
 }
 
+// Main constructor
 Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<int>* IDs)
     : Person(id,nm,lvl),
       department(dept)
@@ -27,6 +30,7 @@ Faculty::Faculty(int id, string nm, string lvl, string dept, DoublyLinkedList<in
         IDs->insertFront(id);
     }
 
+// Secondary constructor
 Faculty::Faculty(int id, string nm, string lvl, string dept)
     : Person(id,nm,lvl),
       department(dept)
@@ -54,6 +58,7 @@ void Faculty::AddAdvisee(Student *s)
     }
 }
 
+// Print information
 void Faculty::print()
 {
     Person::print();
@@ -64,6 +69,7 @@ void Faculty::print()
     cout << "----" << endl;
 }
 
+// Print the information of all of the advisees
 void Faculty::printAdvisees(BST<Person*> *sT)
 {
     ListNode<int> *current = advisees.getHead();
@@ -76,6 +82,7 @@ void Faculty::printAdvisees(BST<Person*> *sT)
     cout << endl;
 }
 
+// Save to file
 void Faculty::save(ofstream &myStream)
 {
     Person::save(myStream);
@@ -84,6 +91,5 @@ void Faculty::save(ofstream &myStream)
 
 void Faculty::removeAdvisee(int key)
 {
-    //How can we get rid of this warning?
     advisees.remove(key);
 }

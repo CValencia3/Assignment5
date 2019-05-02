@@ -37,11 +37,9 @@ class TreeNode
 public:
     TreeNode();
     TreeNode(int key,T value);
-    virtual ~TreeNode(); // Why is this virtual?
-    // Calls the destructor for the derived class before the base class constructor
-
-    int key; // In this case the key == value
-    T value; // In this case the key == value
+    virtual ~TreeNode();
+    int key;
+    T value;
     TreeNode<T>* left;
     TreeNode<T>* right;
 };
@@ -64,10 +62,6 @@ TreeNode<T>::TreeNode(int k, T v)
 template<class T>
 TreeNode<T>::~TreeNode()
 {
-    // research how to do this
-    // This is so that you can have objects inside and call their destructors first
-    // Have to derive for specific
-
     delete value;
 }
 
@@ -77,7 +71,7 @@ class BST
 public:
     BST();
     virtual ~BST();
-    void insert(int key, T value);
+    void insert(int  key, T value);
     bool contains(int key);
     TreeNode<T>* getSuccessor(TreeNode<T>* d);
     bool deleteR(int k);
@@ -86,10 +80,16 @@ public:
     TreeNode<T>* getMax();
     bool isEmpty();
     void printTree();
+
+    // Print the contents of the key given the id
     void searchPrint(int key);
+    // Recursive print call. Prints and then calls recPrint on its children
     void recPrint(TreeNode<T>* node);
+    // Find a key and return the value
     T findKey(int key);
+    // Count the elements in the tree
     int elements();
+    // recursive count elements. Calls itself on its children
     int recElements(TreeNode<T>* node);
 
     TreeNode<T>* root;
@@ -114,6 +114,7 @@ void BST<T>::printTree()
     recPrint(root);
 }
 
+// Recursive print call. Prints and then calls recPrint on its children
 template<class T>
 void BST<T>::recPrint(TreeNode<T>* node)
 {
@@ -190,6 +191,7 @@ bool BST<T>::contains(int key)
     return true;
 }
 
+// Print the contents of the key given the id
 template<class T>
 void BST<T>::searchPrint(int key)
 {
@@ -299,6 +301,7 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T>* d)
     }
 }
 
+// Find a key and return the value
 template<class T>
 T BST<T>::findKey(int k)
 {
@@ -315,13 +318,14 @@ T BST<T>::findKey(int k)
     throw invalid_argument("There is no item with this ID in the tree");
 }
 
+// Count the elements in the tree
 template<class T>
-
 int BST<T>::elements()
 {
     return recElements(root);
 }
 
+// recursive count elements. Calls itself on its children
 template<class T>
 int BST<T>::recElements(TreeNode<T>* node)
 {

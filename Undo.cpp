@@ -4,6 +4,8 @@
 #include "DeletedPerson.h"
 #include <typeinfo>
 
+// This is just a wrapper class for a genstack in order to make it easier to use
+// it as an undo stack
 
 using namespace std;
 
@@ -19,7 +21,7 @@ Undo::Undo(int s)
 
 Undo::~Undo()
 {
-    //delete undoStack;
+
 }
 
 void Undo::push(Manips* manipulation)

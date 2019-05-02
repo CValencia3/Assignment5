@@ -1,15 +1,22 @@
-
 #include "DeletedPerson.h"
 
+// constructor
 DeletedPerson::DeletedPerson()
 {
 id = 2;
 }
+
+// destructor
 DeletedPerson::~DeletedPerson()
 {
     delete facultyIDs;
 }
 
+// Create a new deletedPerson object. Takes
+    // pointer to a person
+    // pointer to the affected database
+    // pointer to the other database
+    // pointer to list of faculty ids
 DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
@@ -17,6 +24,10 @@ DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, Do
     facultyIDs = IDs;
 }
 
+// Create a new deletedPerson object. Takes
+    // pointer to a person
+    // pointer to the affected database
+    // pointer to the other database
 DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
@@ -29,6 +40,7 @@ DeletedPerson::DeletedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
 
 }
 
+// Creates facultyIDs by itself
 void DeletedPerson::recFacultyID(TreeNode<Person*>* node)
 {
     if(node == NULL) return;
@@ -36,6 +48,7 @@ void DeletedPerson::recFacultyID(TreeNode<Person*>* node)
     facultyIDs->insertFront(node->key);
     recFacultyID(node->right);
 }
+
 void DeletedPerson::undoOperation() // Oposite of action done, so insert
 {
     if(affectedPerson->isStudent)

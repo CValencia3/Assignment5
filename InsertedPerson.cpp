@@ -14,12 +14,22 @@ InsertedPerson::~InsertedPerson()
     delete facultyIDs;
 }
 
+// Create a new InsertedPerson object. Takes
+    // pointer to a person
+    // pointer to the affected database
+    // pointer to the other database
+    // pointer to list of faculty ids
 InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
     id = 1;
     facultyIDs = IDs;
 }
+
+// Create a new InsertedPerson object. Takes
+    // pointer to a person
+    // pointer to the affected database
+    // pointer to the other database
 InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
     :affectedPerson(myP), affectedTree(aT), otherTree(oT)
 {
@@ -31,6 +41,7 @@ InsertedPerson::InsertedPerson(Person *myP, BST<Person*> *aT, BST<Person*> *oT)
     }
 
 }
+
 void InsertedPerson::recFacultyID(TreeNode<Person*>* node)
 {
     if(node == NULL) return;

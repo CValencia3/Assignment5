@@ -385,18 +385,41 @@ void deleteFaculty(Database &myDatabase)
 void changeStudentAdvisor(Database &myDatabase)
 {
     int studentNumber = parseUserID("student");
-    int facultyNumber = parseUserID("faculty");
 
-    myDatabase.replaceAdvisor(studentNumber, facultyNumber);
+    if(myDatabase.containsStudentID(studentNumber))
+    {
+        int facultyNumber = parseUserID("faculty");
+
+        if(myDatabase.containsFacultyID(facultyNumber))
+            myDatabase.replaceAdvisor(studentNumber, facultyNumber);
+        else
+            cout << "There is no faculty with that ID" << endl;
+    }
+    else
+        cout << "There is no student with that ID" << endl;
 }
 
 // Asks for student and faculty ids, and then changes the student's advisor to to a random faculty member
 void removeStudentFromAdvisor(Database &myDatabase)
 {
     int facultyNumber = parseUserID("faculty");
-    int studentNumber = parseUserID("student");
 
-    myDatabase.switchAdvisor(facultyNumber, studentNumber);
+    if(myDatabase.containsFacultyID(facultyNumber))
+    {
+        if(((Faculty*)myDatabase.facultyDatabase->findKey(facultyNumber))->advisees.getSize() != 0)
+        {
+            int studentNumber = parseUserID("student");
+
+            if(myDatabase.containsStudentID(studentNumber))
+                myDatabase.switchAdvisor(facultyNumber, studentNumber);
+            else
+                cout << "There is no student with that ID" << endl;
+        }
+        else
+            cout << "That faculty has no advisees." << endl;
+    }
+    else
+        cout << "There is no faculty with that ID" << endl;
 }
 
 // Asks the user for input and parses it into an id

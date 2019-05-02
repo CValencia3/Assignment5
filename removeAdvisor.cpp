@@ -7,6 +7,11 @@ removeAdvisor::removeAdvisor()
     id = 3;
 }
 
+// Create a new InsertedPerson object. Takes
+    // pointer to a person
+    // pointer to the affected database
+    // pointer to the other database
+    // pointer to list of faculty ids
 removeAdvisor::removeAdvisor(Person *aFac, int studentID, BST<Person*>* fT, BST<Person*> *sT, DoublyLinkedList<int>* IDs)
     :actualFaculty((Faculty*)aFac), facultyTree(fT), studentTree(sT), studentID(studentID)
 {

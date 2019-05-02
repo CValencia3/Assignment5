@@ -74,6 +74,7 @@ class DoublyLinkedList
         unsigned int getSize();
         // Delete the element at the given index
         T deletePos(int position);
+        // Function to return the variable from a specific index of the list
         T index(int index);
 };
 
@@ -326,6 +327,7 @@ T DoublyLinkedList<T>::deletePos(int position)
     return temp;
 }
 
+// Function to return the variable from a specific index of the list
 template <class T>
 T DoublyLinkedList<T>::index(int indexInput)
 {

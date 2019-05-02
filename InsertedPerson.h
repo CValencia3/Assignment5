@@ -12,15 +12,24 @@
 class InsertedPerson: public Manips
 {
 public:
-    InsertedPerson();
-    ~InsertedPerson();
+    InsertedPerson(); // constructor
+    ~InsertedPerson(); // destructor
+    // Create a new InsertedPerson object. Takes
+        // pointer to a person
+        // pointer to the affected database
+        // pointer to the other database
+        // pointer to list of faculty ids
     InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*>* oT, DoublyLinkedList<int>* IDs);
+    // Create a new InsertedPerson object. Takes
+        // pointer to a person
+        // pointer to the affected database
+        // pointer to the other database
     InsertedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT);
+    // Gather faculty ids
     void recFacultyID(TreeNode<Person*>* node);
-    void undoOperation(); // Delete
-    void redoOperation();
+    void undoOperation(); // Delete the person
+    void redoOperation(); // stick the person back in
 
-// private:
     Person *affectedPerson;
     BST<Person*>* affectedTree; // Tree that contains the person
     BST<Person*>* otherTree; // The other tree

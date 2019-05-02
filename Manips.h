@@ -4,17 +4,17 @@
 
 #include "Person.h"
 
+// This parent class allows us to have a stack that will hold all of the
+// differnt types of manipulations that we need
+
 class Manips
 {
 public:
     Manips();
     Manips(Person affectedPerson);
-    // virtual void undoOperation() = 0;
-    // virtual void redoOperation() = 0;
 
     Person affectedPerson;
     int id;
-private:
 };
 //1 = insert person
 //2 = delete

@@ -32,7 +32,9 @@ public:
     void deleteStudent(int id, string nm, string lvl, string mjr, int adv, double gpa);
     void addFaculty(int id, string nm, string lvl, string dpt);
     void deleteFaculty(int id, string nm, string lvl, string dpt);
+    // Fill facultyIDs with faculty IDs
     void collectFaculty();
+    // Recursive call for getting faculty. Calls itself on its child nodes
     void recCollectFaculty(TreeNode<Person*>* myNode);
     void printStudentInformation(int id);
     void printFacultyInformation(int id);
@@ -52,5 +54,4 @@ public:
     Undo undoStack;
     Redo redoStack;
     serializer myS;
-    // Redo Stack
 };

@@ -6,6 +6,9 @@
 
 using namespace std;
 
+// This is just a wrapper class for a genstack in order to make it easier to use
+// it as an undo stack
+
 Redo::Redo()
 {
     redoStack = new GenStack(5);
@@ -18,7 +21,7 @@ Redo::Redo(int s)
 
 Redo::~Redo()
 {
-    // delete redoStack;
+
 }
 
 void Redo::push(Manips* manipulation)
@@ -28,8 +31,6 @@ void Redo::push(Manips* manipulation)
 
 Manips* Redo::pop()
 {
-    // Manips* temp = redoStack->pop();
-    // temp->redoOperation();
     return redoStack->pop();
 }
 

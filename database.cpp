@@ -17,24 +17,18 @@ Database::Database()
     initialize();
 
     collectFaculty();
-
-
-    //exit();
 }
 
 void Database::initialize()
 {
-    // serializer myS;
     myS.deserialize(*studentDatabase, *facultyDatabase);
 }
 
 void Database::exit()
 {
-    // serializer myS;
     myS.serializeTree(*studentDatabase, *facultyDatabase);
 }
 
-// DONE
 void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa);
@@ -45,12 +39,8 @@ void Database::addStudent(int id, string nm, string lvl, string mjr, int adv, do
     undoStack.push(myP);
 
     redoStack.clear();
-
-    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
-    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
-// DONE
 void Database::deleteStudent(int id, string nm, string lvl, string mjr, int adv, double gpa)
 {
     Student* tempStudent = new Student(id, nm, lvl, mjr, adv, gpa); // Create student object
@@ -62,12 +52,8 @@ void Database::deleteStudent(int id, string nm, string lvl, string mjr, int adv,
     undoStack.push(myP); // Add to undo stack
 
     redoStack.clear(); // Clear the redos
-
-    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
-    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
-// DONE
 void Database::addFaculty(int id, string nm, string lvl, string dpt)
 {
 
@@ -80,12 +66,8 @@ void Database::addFaculty(int id, string nm, string lvl, string dpt)
     undoStack.push(myP);
 
     redoStack.clear();
-
-    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
-    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
-// DONE
 void Database::deleteFaculty(int id, string nm, string lvl, string dpt)
 {
     Faculty* tempFaculty = new Faculty(id, nm, lvl, dpt);
@@ -106,12 +88,8 @@ void Database::deleteFaculty(int id, string nm, string lvl, string dpt)
 
     facultyDatabase->deleteR(id);
     redoStack.clear();
-
-    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
-    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
-// Done
 void Database::replaceAdvisor(int studID, int facID)
 {
     addAdvisor* tempAdd = new addAdvisor(studentDatabase->findKey(studID), facID, studentDatabase, facultyDatabase, facultyIDs);
@@ -135,8 +113,6 @@ void Database::undo()
         cout << "There's nothing to undo" << endl;
         return;
     }
-    // undoStack->pop()->undoOperation();
-    //This is the right cast for insert person.
 
     Manips* pop = undoStack.pop();
     switch (pop->id)
@@ -163,27 +139,22 @@ void Database::undo()
         }
         case 3:
         {
-            // replaceAdvisor* temp = (replaceAdvisor*)pop;
-            // temp->undoOperation();
-            // redoStack.push(temp);
+            cout << "Undoing remove advisee..." << endl;
+            removeAdvisor* temp = (removeAdvisor*)pop;
+            temp->undoOperation();
+            redoStack.push(temp);
 
-            cout << "case: 3" << endl;
             break;
         }
         case 4:
         {
+            cout << "Undoing add advisee..." << endl;
             addAdvisor* temp = (addAdvisor*)pop;
             temp->undoOperation();
             redoStack.push(temp);
-
-            studentDatabase->printTree();
-
-            cout << "case: 4" << endl;
             break;
         }
     }
-    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
-    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
 void Database::redo()
@@ -214,32 +185,25 @@ void Database::redo()
             DeletedPerson* temp = (DeletedPerson*)pop;
             temp->redoOperation();
             undoStack.push(temp);
-
-
             break;
         }
         case 3:
         {
-            // removeAdvisor* temp = (removeAdvisor*)pop;
-            // temp->redoOperation();
-            // undoStack.push(temp);
-            //
-            // cout << "case: 3" << endl;
-            // break;
+            cout << "Adding advisor back..." << endl;
+            removeAdvisor* temp = (removeAdvisor*)pop;
+            temp->redoOperation();
+            undoStack.push(temp);
+            break;
         }
         case 4:
         {
+            cout << "Removing new advisor..." << endl;
             addAdvisor* temp = (addAdvisor*)pop;
             temp->redoOperation();
             undoStack.push(temp);
-
-            cout << "case: 4" << endl;
             break;
         }
     }
-
-    cout << "Elements in Student Tree: " << studentDatabase->elements() << endl;
-    cout << "Elements in Faculty Tree: " << facultyDatabase->elements() << endl << endl << endl;
 }
 
 void Database::collectFaculty()

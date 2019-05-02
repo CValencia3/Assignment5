@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// constructor
 Student::Student()
 {
     Person();
@@ -11,6 +12,7 @@ Student::Student()
     isStudent = true;
 }
 
+// constructor
 Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
     : Person(id,nm,lvl),
       major{mjr},
@@ -18,6 +20,7 @@ Student::Student(int id, string nm, string lvl, string mjr, int adv, double gpa)
       GPA(gpa)
       { isStudent = true;}
 
+// Descructor
 Student::~Student()
 {
 
@@ -36,11 +39,11 @@ void Student::printAdvisor(BST<Person*>* fT)
     fT->searchPrint(advisorID);
 }
 
+// serialize student
 void Student::save(ofstream &myStream)
 {
     Person::save(myStream);
     myStream << major << '|'
              << advisorID << '|'
              << GPA << '\n';
-
 }

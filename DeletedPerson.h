@@ -12,15 +12,24 @@
 class DeletedPerson: public Manips
 {
 public:
-    DeletedPerson();
-    ~DeletedPerson();
+    DeletedPerson(); // constructor
+    ~DeletedPerson(); // destructor
+    // Create a new deletedPerson object. Takes
+        // pointer to a person
+        // pointer to the affected database
+        // pointer to the other database
+        // pointer to list of faculty ids
     DeletedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT, DoublyLinkedList<int>* IDs);
+    // Create a new deletedPerson object. Takes
+        // pointer to a person
+        // pointer to the affected database
+        // pointer to the other database
     DeletedPerson(Person *myP, BST<Person*>* aT, BST<Person*> *oT);
+    // Creates facultyIDs by itself
     void recFacultyID(TreeNode<Person*>* node);
     void undoOperation(); // Delete
     void redoOperation();
 
-// private:
     Person *affectedPerson;
     BST<Person*>* affectedTree; // Tree that contains the person
     BST<Person*>* otherTree; // The other tree

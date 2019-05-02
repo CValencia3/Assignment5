@@ -10,10 +10,10 @@ using namespace std;
 class Student: public Person
 {
 public:
-    Student();
-    Student(int id, string name, string level, string major, int advisor, double gpa);
-    ~Student();
-    void save(ofstream &myStream);
+    Student(); // constructor
+    Student(int id, string name, string level, string major, int advisor, double gpa); // constructor
+    ~Student(); // destructor
+    void save(ofstream &myStream); // serialize student
 
     string major;
     int advisorID;
