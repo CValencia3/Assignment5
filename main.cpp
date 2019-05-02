@@ -1,8 +1,18 @@
-//TO DO
 /*
-Need to go back and clean up this code if there's time. There's a lot of copy/paste code here due to time constraints
+
+CPSC 350-02
+Assignment 5
+
+Matt Raymond
+2270559
+raymo116@mail.chapman.edu
+
+Christian Valencia
+2275944
+valen193@mail.chapman.edu
 
 */
+
 #include <string>
 #include <iostream>
 
@@ -125,51 +135,79 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
             else
                 myDatabase.studentDatabase->printTree();
             break;
+
+
         case 2:
             if(myDatabase.facultyDatabase->elements() == 0)
                 cout << "This tree is empty" << endl;
             else
                 myDatabase.facultyDatabase->printTree();
             break;
+
+
         case 3:
             printStudentInformation(myDatabase);
             break;
+
+
         case 4:
             printFacultyInformation(myDatabase);
             break;
+
+
         case 5:
             printStudentAdvisor(myDatabase);
             break;
+
+
         case 6:
             printFacultyAdvisees(myDatabase);
             break;
+
+
         case 7:
             if(myDatabase.facultyIDs->getSize() > 0)
                 addNewStudent(myDatabase);
             else
                 cout << "Sorry, but you need at least one faculty member to add students" << endl;
             break;
+
+
         case 8:
             deleteStudent(myDatabase);
             break;
+
+
         case 9:
             addNewFaculty(myDatabase);
             break;
+
+
         case 10:
             deleteFaculty(myDatabase);
             break;
+
+
         case 11:
             changeStudentAdvisor(myDatabase);
             break;
+
+
         case 12:
             removeStudentFromAdvisor(myDatabase);
             break;
+
+
         case 13:
             myDatabase.undo();
             break;
+
+
         case 14:
             myDatabase.redo();
             break;
+
+            
         case 15:
             myDatabase.exit();
             r = false;
