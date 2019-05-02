@@ -1,7 +1,14 @@
-//TO DO
 /*
-Need to go back and clean up this code if there's time. There's a lot of copy/paste code here due to time constraints
+CPSC 350-02
+Assignment 5
 
+Christian Valencia
+2275944
+valen193@mail.chapman.edu
+
+Matt Raymond
+2270559
+raymo116@mail.chapman.edu
 */
 #include <string>
 #include <iostream>

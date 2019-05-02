@@ -50,9 +50,10 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
     size_t pos = 0;
     string token[size];
     int count = 0;
-
+    //For every line
     while(getline(studentIn, s))
     {
+        //Break string into token
         while ((pos = s.find(delimiter)) != string::npos)
         {
             token[count] = s.substr(0,pos);
@@ -62,6 +63,7 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
         }
         token[size - 1] = s;
 
+        //Feed tokens into student constructor and feed it into tree
         try
         {
             Person *p = new Student(parseInt(token[0]),   //ID
@@ -78,12 +80,13 @@ void serializer::deserialize(BST<Person*> &students, BST<Person*> &faculty)
             cout << "There was an error reading one of your student records.\n"
                  << "It has been removed from the database.\n" << endl;
         }
+        //reset counters
         pos = 0;
         count = 0;
     }
     studentIn.close();
 
-    // deserialize students
+    // deserialize faculty same method as student
     ifstream facultyIn ("faculty.txt");
 
     while(getline(facultyIn, s))
