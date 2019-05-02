@@ -10,24 +10,6 @@ valen193@mail.chapman.edu
 2270559
 
 raymo116@mail.chapman.edu
-
-
-## Instructions
-- Enter `make` to compile
-- Enter `./mRaymond_cValencia.out` run
-- Follow instructions that appear on screen
-
-## Students
-### Matt Raymond
-2270559
-
-raymo116@mail.chapman.edu
-
-### Christian Valencia
-2275944
-
-valen193@mail.chapman.edu
-
 ## Instructions
 - Enter `make` to compile
 - Enter `./mRaymond_cValencia.out` to run the program

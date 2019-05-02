@@ -1,20 +1,6 @@
 /*
-<<<<<<< HEAD
 CPSC 350-02
 Assignment 5
-=======
-
-CPSC 350-02
-Assignment 5
-
-Matt Raymond
-2270559
-raymo116@mail.chapman.edu
-
-Christian Valencia
-2275944
-valen193@mail.chapman.edu
->>>>>>> 7b4be62d0f668aea96581e43315887248b53ae41
 
 Christian Valencia
 2275944
@@ -219,7 +205,7 @@ void processUserInput(bool &r, int userInput, Database &myDatabase)
             myDatabase.redo();
             break;
 
-            
+
         case 15:
             myDatabase.exit();
             r = false;
