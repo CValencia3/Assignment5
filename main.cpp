@@ -64,7 +64,8 @@ void removeStudentFromAdvisor(Database &myDatabase);
 // Asks the user for input and parses it into an id
 int parseUserID(string idType);
 
-void bye();
+// Prevents the user from messing with serialization
+string inputWithoutPipe();
 
 //------------------------------------------------------------//
 
@@ -319,11 +320,11 @@ void addNewStudent(Database &myDatabase)
     id = facID = 0;
 
     cout << "Please enter the student's name:" << endl;
-    getline(cin, name);
+    name = inputWithoutPipe();
     cout << "Please enter their class standing:" << endl;
-    getline(cin, level);
+    level = inputWithoutPipe();
     cout << "Please enter their major:" << endl;
-    getline(cin, major);
+    major = inputWithoutPipe();
     cout << "Please enter their GPA" << endl;
 
     string tempString = "";
@@ -391,15 +392,17 @@ void addNewFaculty(Database &myDatabase)
     id = 0;
 
     cout << "Please enter the faculty's name:" << endl;
-    getline(cin, name);
+    name = inputWithoutPipe();
     cout << "Please enter their level of seniority:" << endl;
-    getline(cin, level);
+    level = inputWithoutPipe();
     cout << "Please enter their department:" << endl;
-    getline(cin, department);
+    department = inputWithoutPipe();
 
 
     do { id = rand()%999999; } while(myDatabase.containsStudentID(id) || myDatabase.containsFacultyID(id));
     myDatabase.addFaculty(id, name, level, department);
+
+    cout << "Faculty's randomly assigned ID is: " << id << endl;
 }
 
 // Asks for ID and deletes faculty from the database
@@ -476,5 +479,26 @@ int parseUserID(string idType)
             return stoi(userInput);
 
         cout << "That was an invalid ID number. Please try again" << endl;
+    }
+}
+
+string inputWithoutPipe()
+{
+    string name = "";
+    bool contains = false;
+    while(true)
+    {
+        getline(cin, name);
+        for (int i = 0; i < name.length(); i++)
+        {
+            if(name[i] == '|')
+            {
+                contains = true;
+                cout << "You cannot have the pipe  character \"|\" in this field" << endl;
+                cout << "Please try again:" << endl;
+            }
+        }
+        if(!contains) return name;
+        contains = false;
     }
 }
