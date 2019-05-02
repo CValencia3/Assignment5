@@ -32,8 +32,8 @@ void serializer::serializeNode(TreeNode<Person*>* root, ofstream &myStream)
 {
     if(root != NULL)
     {
-        if(root->left!=NULL) serializeNode(root->left, myStream);
         root->value->save(myStream);
+        if(root->left!=NULL) serializeNode(root->left, myStream);
         if(root->right!=NULL) serializeNode(root->right, myStream);
     }
 }
