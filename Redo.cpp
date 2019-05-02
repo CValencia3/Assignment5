@@ -1,8 +1,4 @@
-#include "GenStack.h"
 #include "Redo.h"
-#include "InsertedPerson.h"
-#include "DeletedPerson.h"
-#include <typeinfo>
 
 using namespace std;
 

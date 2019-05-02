@@ -1,16 +1,14 @@
 /*
-
 CPSC 350-02
 Assignment 5
-
-Matt Raymond
-2270559
-raymo116@mail.chapman.edu
 
 Christian Valencia
 2275944
 valen193@mail.chapman.edu
 
+Matt Raymond
+2270559
+raymo116@mail.chapman.edu
 */
 
 #include <string>
