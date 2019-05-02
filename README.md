@@ -1,5 +1,24 @@
 # Assignment5
 
+## Students
+### Matt Raymond
+2270559
+
+raymo116@mail.chapman.edu
+
+### Christian Valencia
+2275944
+
+valen193@mail.chapman.edu
+
+## Instructions
+- Enter `make` to compile
+- Enter `./mRaymond_cValencia.out` to run the program
+- Follow the prompts on the screen
+- On exit, data will be saved to two file:
+  - `faculty.txt`
+  - `students.txt`
+
 ## References
 [Overloading Operators](https://www.tutorialspoint.com/cplusplus/relational_operators_overloading.htm)
 
